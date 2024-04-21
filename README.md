@@ -11,13 +11,15 @@ Users can access the platform and make their predictions by dragging and droppin
 - Intuitive drag-and-drop interface for making predictions.
 - Point system that rewards accuracy in predicting group standings.
 - Leaderboard page to track users' rankings and standings.
-- Interactive and engaging gameplay experience for soccer fans.
+- Interactive and engaging game play experience.
+- Authentication
+- Ability to view other users' predictions and compare them with your own.
 
 ## Technologies Used
 
 This project is built using:
 
-- React for the frontend user interface.
+- NextJS with Typescript for the frontend user interface.
 - Tailwind CSS for minimalistic and responsive styling.
 - React Router for handling client-side routing.
 - Git and GitHub for version control and collaboration.
