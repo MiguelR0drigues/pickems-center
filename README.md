@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pickems Center
 
-## Getting Started
+Welcome to the Pickems Center repository! This project is a web-based platform where users can compete with each other by predicting the final standings for the Soccer Euro 2024 group stage.
 
-First, run the development server:
+## How it Works
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Users can access the platform and make their predictions by dragging and dropping teams into their desired placement within the groups. Points are awarded based on the accuracy of their predictions, with higher points for correctly predicting the entire group or the placement of individual teams.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Intuitive drag-and-drop interface for making predictions.
+- Point system that rewards accuracy in predicting group standings.
+- Leaderboard page to track users' rankings and standings.
+- Interactive and engaging gameplay experience for soccer fans.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+This project is built using:
 
-To learn more about Next.js, take a look at the following resources:
+- React for the frontend user interface.
+- Tailwind CSS for minimalistic and responsive styling.
+- React Router for handling client-side routing.
+- Git and GitHub for version control and collaboration.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Get Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To try out the Pickems Center, simply clone this repository to your local machine and follow the setup instructions in the README.md file. Make your predictions, compete with friends, and climb your way to the top of the leaderboard!
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contributions are welcome! If you have any suggestions, bug fixes, or feature requests, feel free to open an issue or submit a pull request.
