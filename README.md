@@ -23,10 +23,7 @@ This project is built using:
 - Tailwind CSS for minimalistic and responsive styling.
 - React Router for handling client-side routing.
 - Git and GitHub for version control and collaboration.
-
-## Get Started
-
-To try out the Pickems Center, simply clone this repository to your local machine and follow the setup instructions in the README.md file. Make your predictions, compete with friends, and climb your way to the top of the leaderboard!
+- React Router dom for routing management.
 
 ## Contributing
 
