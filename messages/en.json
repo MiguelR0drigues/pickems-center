@@ -1,0 +1,36 @@
+{
+  "HomeScreen": {
+    "hero": "Welcome to the",
+    "howItWorks": {
+      "title": "How it works?",
+      "bullet1": {
+        "title": "Predict & Place",
+        "description": "Drag and drop teams into their predicted group stage standings."
+      },
+      "bullet2": {
+        "title": "Score Big",
+        "description": "Score Big: Get rewarded for your accuracy!"
+      },
+      "bullet3": {
+        "title": "Leaderboard Showdown",
+        "description": "Keep track of your ranking as the action unfolds."
+      },
+      "action": "Try it now!"
+    },
+    "points": {
+      "title": "How are the points awarded?",
+      "points": "points",
+      "groupStage": {
+        "title": "Group Stage",
+        "bullet1": "Predicted advancement and placement for the entire group:",
+        "bullet2": "Predicted advancement and placement:",
+        "bullet3": "Predicted advancement but not the placement:",
+        "bullet4": "Failed to predict advancement:"
+      },
+      "eliminationStage": {
+        "title": "Elimination Stage",
+        "bullet1": "Predicted correct winner:"
+      }
+    }
+  }
+}

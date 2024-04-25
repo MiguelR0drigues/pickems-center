@@ -1,0 +1,36 @@
+{
+  "HomeScreen": {
+    "hero": "Bem-vindo ao",
+    "howItWorks": {
+      "title": "Como funciona?",
+      "bullet1": {
+        "title": "Prevê & ordena",
+        "description": "Arrasta as equipas para as posições em que acreditas que terminarão a fase de grupos."
+      },
+      "bullet2": {
+        "title": "Acumula pontos",
+        "description": "Sê recompensado pela tua precisão!"
+      },
+      "bullet3": {
+        "title": "Desafia o Quadro de Líderes",
+        "description": "Acompanha o teu ranking enquanto a ação se desenrola."
+      },
+      "action": "Experimenta já!"
+    },
+    "points": {
+      "title": "Como são atribuídos os pontos?",
+      "points": "pontos",
+      "groupStage": {
+        "title": "Fase de Grupos",
+        "bullet1": "Prevê o avanço e a classificação para o grupo inteiro:",
+        "bullet2": "Prevê o avanço e a classificação:",
+        "bullet3": "Prevê o avanço, mas não a classificação:",
+        "bullet4": "Falha na previsão de avanço:"
+      },
+      "eliminationStage": {
+        "title": "Fase de Eliminação",
+        "bullet1": "Prevê o vencedor correto:"
+      }
+    }
+  }
+}
