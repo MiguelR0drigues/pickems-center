@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -10,6 +11,7 @@ import { GroupData } from "../../types";
 
 const Pickems = (): JSX.Element => {
   const toaster = useToast();
+  const t = useTranslations("PickemsScreen");
 
   const [previousGroups, setPreviousGroups] = useState<GroupData>(
     mockedGroups.data
@@ -40,7 +42,7 @@ const Pickems = (): JSX.Element => {
   return (
     <div className="flex flex-col gap-10 items-center">
       <div className="flex flex-row gap-6">
-        <div className="text-6xl text-green-500">PICKEMS</div>
+        <div className="text-6xl text-green-500">{t("title")}</div>
         <PointsInfoPopover />
       </div>
       <div className="flex flex-wrap flex-row gap-8 justify-center items-center">
@@ -61,7 +63,7 @@ const Pickems = (): JSX.Element => {
         variant="secondary"
         onClick={handleSubmit}
       >
-        Save
+        {t("button")}
       </Button>
     </div>
   );

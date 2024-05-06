@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { cn } from "../../lib/utils";
 import { Button } from "./button";
 import {
@@ -17,12 +18,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 const languages = [
   {
-    value: "Portuguese",
+    value: "pt",
     label: "Portuguese",
     code: "pt",
   },
   {
-    value: "English",
+    value: "en",
     label: "English",
     code: "gb-eng",
   },
@@ -31,6 +32,11 @@ const languages = [
 export default function Combobox() {
   const [open, setOpen] = React.useState(false);
   const [selectedLanguage, setSelectedLanguage] = React.useState("");
+  const router = useRouter();
+
+  React.useEffect(() => {
+    router.replace(`/${selectedLanguage}`);
+  }, [router, selectedLanguage]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

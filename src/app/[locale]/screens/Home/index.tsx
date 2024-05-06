@@ -56,7 +56,7 @@ const Home = (): JSX.Element => {
           </p>
           <div className="text-start mt-8">
             <Link
-              to="/pickems"
+              to={`pickems`}
               className="inline-block bg-green-700 hover:bg-green-900 text-lg font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
             >
               {t("howItWorks.action")}
