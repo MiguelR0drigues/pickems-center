@@ -32,5 +32,59 @@
         "bullet1": "Predicted correct winner:"
       }
     }
+  },
+  "LeaderboardScreen": {
+    "title": "General Leaderboard",
+    "table": {
+      "name": "Name",
+      "points": "Points"
+    }
+  },
+  "PickemsScreen": {
+    "title": "Pickems",
+    "group": "Group",
+    "button": "Save"
+  },
+  "countries": {
+    "germany": "Germany",
+    "scotland": "Scotland",
+    "hungary": "Hungary",
+    "switzerland": "Switzerland",
+    "spain": "Spain",
+    "croatia": "Croatia",
+    "italy": "Italy",
+    "albania": "Albania",
+    "slovenia": "Slovenia",
+    "denmark": "Denmark",
+    "serbia": "Serbia",
+    "england": "England",
+    "poland": "Poland",
+    "netherlands": "Netherlands",
+    "austria": "Austria",
+    "france": "France",
+    "belgium": "Belgium",
+    "slovakia": "Slovakia",
+    "romania": "Romania",
+    "ukraine": "Ukraine",
+    "turkey": "Turkey",
+    "georgia": "Georgia",
+    "portugal": "Portugal",
+    "czechia": "Czechia"
+  },
+  "components": {
+    "pointsPopOver": {
+      "title": "Points System",
+      "groupStage": {
+        "title": "Group Stage",
+        "bullet1": "Predicted advancement and placement for the entire group:",
+        "bullet2": "Predicted advancement and placement:",
+        "bullet3": "Predicted advancement but not the placement:",
+        "bullet4": "Failed to predict advancement:"
+      },
+      "eliminationStage": {
+        "title": "Elimination Stage",
+        "bullet1": "Predicted correct winner:"
+      }
+    }
   }
 }
