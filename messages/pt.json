@@ -32,5 +32,59 @@
         "bullet1": "Prevê o vencedor correto:"
       }
     }
+  },
+  "LeaderboardScreen": {
+    "title": "Quadro de Líderes",
+    "table": {
+      "name": "Nome",
+      "points": "Pontos"
+    }
+  },
+  "PickemsScreen": {
+    "title": "Pickems",
+    "group": "Grupo",
+    "button": "Guardar"
+  },
+  "countries": {
+    "germany": "Alemanha",
+    "scotland": "Escócia",
+    "hungary": "Hungria",
+    "switzerland": "Suíça",
+    "spain": "Espanha",
+    "croatia": "Croácia",
+    "italy": "Itália",
+    "albania": "Albânia",
+    "slovenia": "Eslovénia",
+    "denmark": "Dinamarca",
+    "serbia": "Sérvia",
+    "england": "Inglaterra",
+    "poland": "Polónia",
+    "netherlands": "Países Baixos",
+    "austria": "Áustria",
+    "france": "França",
+    "belgium": "Bélgica",
+    "slovakia": "Eslováquia",
+    "romania": "Roménia",
+    "ukraine": "Ucrânia",
+    "turkey": "Turquia",
+    "georgia": "Geórgia",
+    "portugal": "Portugal",
+    "czechia": "República Checa"
+  },
+  "components": {
+    "pointsPopOver": {
+      "title": "Sistema de Pontuação",
+      "groupStage": {
+        "title": "Fase de Grupos",
+        "bullet1": "Prevê o avanço e a classificação para o grupo inteiro:",
+        "bullet2": "Prevê o avanço e a classificação:",
+        "bullet3": "Prevê o avanço, mas não a classificação:",
+        "bullet4": "Falha na previsão de avanço:"
+      },
+      "eliminationStage": {
+        "title": "Fase de Eliminação",
+        "bullet1": "Prevê o vencedor correto:"
+      }
+    }
   }
 }
