@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Page(): JSX.Element {
+export default function Page({ params }): JSX.Element {
   const t = useTranslations("HomeScreen");
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-white">
@@ -56,7 +56,7 @@ export default function Page(): JSX.Element {
           </p>
           <div className="text-start mt-8">
             <Link
-              href={`/pickems`}
+              href={`/${params.locale}/pickems`}
               className="inline-block bg-green-700 hover:bg-green-900 text-lg font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
             >
               {t("howItWorks.action")}

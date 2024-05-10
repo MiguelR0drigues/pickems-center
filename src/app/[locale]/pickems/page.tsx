@@ -1,3 +1,4 @@
+"use client";
 import { Group } from "@/app/components/group";
 import PointsInfoPopover from "@/app/components/points-info-popover";
 import { Button } from "@/app/components/ui/button";
@@ -13,9 +14,7 @@ const Pickems = (): JSX.Element => {
   const toaster = useToast();
   const t = useTranslations("PickemsScreen");
 
-  const [previousGroups, setPreviousGroups] = useState<GroupData>(
-    mockedGroups.data
-  );
+  const [previousGroups, _] = useState<GroupData>(mockedGroups.data);
   const [currentGroups, setCurrentGroups] = useState<GroupData>(
     previousGroups || {}
   );

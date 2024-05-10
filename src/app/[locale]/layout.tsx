@@ -17,23 +17,24 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
   params: { locale },
-}: Readonly<{
+}: {
   children: React.ReactNode;
   params: { locale: string };
-}>) {
+}) {
   const messages = await getMessages();
+
   return (
     <html lang={locale} className="dark">
       <body className={montserrat.className}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <main className="flex min-h-screen flex-col items-center justify-start bg-black ">
+        <main className="flex min-h-screen flex-col items-center justify-start bg-black ">
+          <NextIntlClientProvider messages={messages} locale={locale}>
             <Navbar />
             <div className="bg-neutral-800 w-11/12 min-h-full flex justify-center items-center p-20 rounded">
               {children}
             </div>
-          </main>
-          <Toaster />
-        </NextIntlClientProvider>
+            <Toaster />
+          </NextIntlClientProvider>
+        </main>
       </body>
     </html>
   );
