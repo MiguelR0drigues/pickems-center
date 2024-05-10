@@ -1,7 +1,9 @@
 import { Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const PointsInfoPopover = () => {
+  const t = useTranslations("components.pointsPopOver");
   return (
     <Popover>
       <PopoverTrigger>
@@ -9,7 +11,7 @@ const PointsInfoPopover = () => {
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-4">
         <section className="flex items-center justify-center font-bold">
-          <h1>Points System</h1>
+          <h1>{t("title")}</h1>
         </section>
 
         <div
@@ -20,21 +22,21 @@ const PointsInfoPopover = () => {
         </div>
 
         <article className="flex flex-col gap-4">
-          <h2 className="font-bold">Group Stage</h2>
+          <h2 className="font-bold">{t("groupStage.title")}</h2>
           <section className="flex flex-row items-center justify-center gap-3">
-            <p>Predicted advancement and placement for the entire group:</p>
+            <p>{t("groupStage.bullet1")}</p>
             <p className="text-green-500">+24</p>
           </section>
           <section className="flex flex-row items-center justify-center gap-3">
-            <p>Predicted advancement and placement:</p>
+            <p>{t("groupStage.bullet2")}</p>
             <p className="text-green-500">+5</p>
           </section>
           <section className="flex flex-row items-center justify-center gap-3">
-            <p>Predicted advancement but not the placement:</p>
+            <p>{t("groupStage.bullet3")}</p>
             <p className="text-green-500">+2</p>
           </section>
           <section className="flex flex-row items-center justify-center gap-3">
-            <p>Failed to predict advancement</p>
+            <p>{t("groupStage.bullet4")}</p>
             <p className="text-red-500">-3</p>
           </section>
         </article>
@@ -47,9 +49,9 @@ const PointsInfoPopover = () => {
         </div>
 
         <article className="flex flex-col gap-4">
-          <h2 className="font-bold">Elimination Stage</h2>
+          <h2 className="font-bold">{t("eliminationStage.title")}</h2>
           <section className="flex flex-row items-center justify-between gap-3">
-            <p>Predicted correct winner:</p>
+            <p>{t("eliminationStage.bullet1")}</p>
             <p className="text-green-500">+2</p>
           </section>
         </article>

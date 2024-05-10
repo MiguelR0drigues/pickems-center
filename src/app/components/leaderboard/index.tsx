@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 type Placement = {
   position: number;
   name: string;
@@ -5,6 +7,8 @@ type Placement = {
 };
 
 const LeaderboardTable = (): JSX.Element => {
+  const t = useTranslations("LeaderboardScreen");
+
   const places: Placement[] = [
     { position: 1, name: "FirstName Surname", points: 70 },
     { position: 2, name: "FirstName Surname", points: 69 },
@@ -34,9 +38,11 @@ const LeaderboardTable = (): JSX.Element => {
         <thead>
           <tr>
             <th className="w-1/6 text-green-400 font-semibold">#</th>
-            <th className="w-4/6 text-green-400 font-semibold">Name</th>
+            <th className="w-4/6 text-green-400 font-semibold">
+              {t("table.name")}
+            </th>
             <th className="w-1/6 text-right text-green-400 font-semibold">
-              Points
+              {t("table.points")}
             </th>
           </tr>
         </thead>
