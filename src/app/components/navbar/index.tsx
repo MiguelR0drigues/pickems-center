@@ -32,7 +32,7 @@ const Navbar = (): JSX.Element => {
         </li>
         <li>
           <Link
-            href={`${locale}/leaderboard`}
+            href={`/${locale}/leaderboard`}
             className={`hover:text-green-400 ${
               isActive(`/${locale}/leaderboard`)
                 ? "border-b-2 border-green-500"
@@ -44,7 +44,7 @@ const Navbar = (): JSX.Element => {
         </li>
         <li>
           <Link
-            href={`/pickems`}
+            href={`/${locale}/pickems`}
             className={`hover:text-green-400 ${
               isActive(`/${locale}/pickems`)
                 ? "border-b-2 border-green-500"
