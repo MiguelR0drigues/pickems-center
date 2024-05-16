@@ -1,7 +1,8 @@
+import { GroupData, GroupItem } from "@/app/types";
 import update from "immutability-helper";
+import { useTranslations } from "next-intl";
 import type { FC } from "react";
 import { useCallback, useState } from "react";
-import { GroupData, GroupItem } from "../../types";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { GroupItemComponent } from "./group-item";
 
@@ -20,6 +21,8 @@ export const Group: FC<{
   updateCurrentGroups: (newGroups: GroupData) => void;
 }> = ({ id, groupsData, groupName, updateCurrentGroups }) => {
   const [cards, setCards] = useState<GroupItem[]>(groupsData);
+
+  const t = useTranslations();
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     setCards((prevCards: GroupItem[]) => {
@@ -43,11 +46,12 @@ export const Group: FC<{
           index={index}
           id={card.id}
           code={card.code}
-          text={card.name}
+          text={t(`countries.${card.name.toLowerCase()}`)}
           moveCard={moveCard}
         />
       );
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [moveCard]
   );
 
@@ -55,7 +59,9 @@ export const Group: FC<{
     <div style={style} id={id} className="group max-w-90 w-60 grid">
       <Card className="bg-neutral-900 h-14 flex justify-between items-center">
         <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-center items-center">
-          <CardTitle>Group {groupName}</CardTitle>
+          <CardTitle>
+            {t("PickemsScreen.group")} {groupName}
+          </CardTitle>
         </CardHeader>
       </Card>
       <div
