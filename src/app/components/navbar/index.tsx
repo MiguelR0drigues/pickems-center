@@ -9,17 +9,17 @@ const Navbar = (): JSX.Element => {
   const isActive = (path: string) => location === path;
   const { locale } = useParams();
   return (
-    <div className="flex flex-row items-center justify-between gap-0 w-11/12 md:gap-9">
+    <div className="flex flex-row items-center justify-between gap-2 w-max mr-2 ml-2 sm:gap-9 sm:w-11/12">
       <Link href={`${locale}`}>
         <Image
           src="/logo.png"
           alt="Logo"
           width={100}
           height={100}
-          className="rounded"
+          className="rounded max-w-12 sm:max-w-max"
         />
       </Link>
-      <ul className="flex flex-row items-center justify-center gap-4 text-white text-lg font-bold mt-8 mb-8">
+      <ul className="flex flex-row items-center justify-center gap-4 text-white text-sm sm:text-lg font-bold mt-8 mb-8">
         <li>
           <Link
             href={`/`}
