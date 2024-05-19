@@ -13,6 +13,7 @@ export default function Page({ params }): JSX.Element {
           alt="Soccer Action"
           width={100}
           height={100}
+          loading="lazy"
           className="w-full h-80 object-cover rounded-lg filter blur-sm"
         />
         <h1 className="text-4xl w-full font-bold mb-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -28,28 +29,28 @@ export default function Page({ params }): JSX.Element {
       </div>
 
       {/* Overview Section */}
-      <section className="flex">
-        <div className="text-start gap-8 mb-8">
+      <section className="flex items-center pl-2">
+        <div className="text-start gap-10 mb-8 sm:gap-8">
           <h2 className="text-2xl font-semibold mb-4">
             {t("howItWorks.title")}
           </h2>
           <p className="text-lg mb-2">
             1.{" "}
-            <span className="text-green-500 text-xl">
+            <span className="text-green-500 text-l sm:text-xl">
               {t("howItWorks.bullet1.title")}
             </span>
             : {t("howItWorks.bullet1.description")}
           </p>
           <p className="text-lg mb-2">
             2.{" "}
-            <span className="text-green-500 text-xl">
+            <span className="text-green-500 text-l sm:text-xl">
               {t("howItWorks.bullet2.title")}
             </span>
             : {t("howItWorks.bullet2.description")}
           </p>
           <p className="text-lg mb-2">
             3.{" "}
-            <span className="text-green-500 text-xl">
+            <span className="text-green-500 text-l sm:text-xl">
               {t("howItWorks.bullet3.title")}
             </span>
             : {t("howItWorks.bullet3.description")}
@@ -68,7 +69,8 @@ export default function Page({ params }): JSX.Element {
           alt="Soccer Action"
           width={100}
           height={100}
-          className="w-full h-auto rounded-lg"
+          loading="lazy"
+          className="w-32 h-60 rounded-lg"
           style={{ maxWidth: "200px" }}
         />
       </section>

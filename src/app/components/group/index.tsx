@@ -6,10 +6,6 @@ import { useCallback, useState } from "react";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { GroupItemComponent } from "./group-item";
 
-const style = {
-  width: 400,
-};
-
 export interface ContainerState {
   cards: GroupItem[];
 }
@@ -56,7 +52,7 @@ export const Group: FC<{
   );
 
   return (
-    <div style={style} id={id} className="group max-w-90 w-60 grid">
+    <div id={id} className="group grid min-w-[270px] sm:min-w-[400px]">
       <Card className="bg-neutral-900 h-14 flex justify-between items-center">
         <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-center items-center">
           <CardTitle>
