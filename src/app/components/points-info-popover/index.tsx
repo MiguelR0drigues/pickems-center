@@ -9,7 +9,7 @@ const PointsInfoPopover = () => {
       <PopoverTrigger>
         <Info />
       </PopoverTrigger>
-      <PopoverContent className="flex flex-col gap-4">
+      <PopoverContent className="flex flex-col gap-4 text-sm sm:text-l">
         <section className="flex items-center justify-center font-bold">
           <h1>{t("title")}</h1>
         </section>
