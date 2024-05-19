@@ -6,6 +6,26 @@ type Placement = {
   points: number;
 };
 
+type DisabledTableProps = {
+  children: React.ReactNode;
+};
+
+const DisabledTable = ({ children }: DisabledTableProps): JSX.Element => {
+  const t = useTranslations("errors");
+
+  return (
+    <div className="relative min-w-full min-h-full">
+      <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center">
+        <h1 className="text-xl text-green-500">{t("featureNotAvailable")}</h1>
+        <h4 className="text-sm mt-4">{t("notStarted")}</h4>
+      </span>
+      <div className="min-w-full min-h-full blur-md select-none">
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const LeaderboardTable = (): JSX.Element => {
   const t = useTranslations("LeaderboardScreen");
 
@@ -34,45 +54,47 @@ const LeaderboardTable = (): JSX.Element => {
 
   return (
     <div className="rounded-xl border p-8 w-full sm:w-2/3">
-      <table className="w-full ">
-        <thead>
-          <tr>
-            <th className="w-1/6 text-green-400 font-semibold">#</th>
-            <th className="w-4/6 text-green-400 font-semibold">
-              {t("table.name")}
-            </th>
-            <th className="w-1/6 text-right text-green-400 font-semibold">
-              {t("table.points")}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {places.map((place, i) => (
-            <tr
-              key={place.position}
-              className={`${
-                i !== places.length - 1 ? "border-b border-neutral-600" : null
-              }`}
-            >
-              <td
-                className={`text-center ${podiumColor(
-                  place.position
-                )} leading-loose`}
-              >
-                {podiumEmoji(place.position)}
-              </td>
-              <td className="text-white">{place.name}</td>
-              <td
-                className={`text-right font-bold text-${podiumColor(
-                  place.position
-                )}`}
-              >
-                {place.points}
-              </td>
+      <DisabledTable>
+        <table className="w-full ">
+          <thead>
+            <tr>
+              <th className="w-1/6 text-green-400 font-semibold">#</th>
+              <th className="w-4/6 text-green-400 font-semibold">
+                {t("table.name")}
+              </th>
+              <th className="w-1/6 text-right text-green-400 font-semibold">
+                {t("table.points")}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {places.map((place, i) => (
+              <tr
+                key={place.position}
+                className={`${
+                  i !== places.length - 1 ? "border-b border-neutral-600" : null
+                }`}
+              >
+                <td
+                  className={`text-center ${podiumColor(
+                    place.position
+                  )} leading-loose`}
+                >
+                  {podiumEmoji(place.position)}
+                </td>
+                <td className="text-white">{place.name}</td>
+                <td
+                  className={`text-right font-bold text-${podiumColor(
+                    place.position
+                  )}`}
+                >
+                  {place.points}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </DisabledTable>
     </div>
   );
 };
