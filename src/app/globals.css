@@ -78,3 +78,23 @@
 .react-beautiful-dnd-draggable {
   transition: transform 0.2s;
 }
+
+.fullscreen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(48, 48, 48, 0.99);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fullscreen-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
