@@ -33,7 +33,7 @@ const LeaderboardTable = (): JSX.Element => {
   };
 
   return (
-    <div className="rounded-xl border p-8 w-2/3">
+    <div className="rounded-xl border p-8 w-full sm:w-2/3">
       <table className="w-full ">
         <thead>
           <tr>
