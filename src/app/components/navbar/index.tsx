@@ -54,6 +54,18 @@ const Navbar = (): JSX.Element => {
             Pickems
           </Link>
         </li>
+        <li>
+          <Link
+            href={`/${locale}/login`}
+            className={`hover:text-green-400 ${
+              isActive(`/${locale}/login`)
+                ? "border-b-2 border-green-500"
+                : ""
+            }`}
+          >
+            Login
+          </Link>
+        </li>
       </ul>
       <Combobox key={"languages"} />
     </div>
