@@ -4,16 +4,16 @@ Welcome to the Pickems Center repository! This project is a web-based platform w
 
 ## How it Works
 
-Users can access the platform and make their predictions by dragging and dropping teams into their desired placement within the groups. Points are awarded based on the accuracy of their predictions, with higher points for correctly predicting the entire group or the placement of individual teams.
+Users can access the platform and make predictions by dragging and dropping teams into their desired group placement. Points are awarded based on the accuracy of their predictions, with higher points for correctly predicting the entire group or the placement of individual teams.
 
 ## Features
 
 - Intuitive drag-and-drop interface for making predictions.
 - Point system that rewards accuracy in predicting group standings.
 - Leaderboard page to track users' rankings and standings.
-- Interactive and engaging game play experience.
+- Interactive and engaging gameplay experience.
 - Authentication
-- Ability to view other users' predictions and compare them with your own.
+- Ability to view and compare other users' predictions with your own.
 
 ## Technologies Used
 
@@ -21,9 +21,12 @@ This project is built using:
 
 - NextJS with Typescript for the frontend user interface.
 - Tailwind CSS for minimalistic and responsive styling.
-- React Router for handling client-side routing.
-- Git and GitHub for version control and collaboration.
-- React Router dom for routing management.
+- NextJS APP Router for handling routing.
+- Shadcn-UI for UI components.
+- Next-intl for internationalization.
+- React-dnd for the drag and drop feature.
+- Supabase for Database and Backend.
+- Git and GitHub for version control and collaboration
 
 ## Contributing
 
