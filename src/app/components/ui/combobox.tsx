@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { Check } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { cn } from "../../lib/utils";
 import { Button } from "./button";
 import {
@@ -30,8 +30,11 @@ const languages = [
 ];
 
 export default function Combobox() {
+  const { locale } = useParams<{ locale: "pt" | "en" }>();
   const [open, setOpen] = React.useState(false);
-  const [selectedLanguage, setSelectedLanguage] = React.useState("");
+  const [selectedLanguage, setSelectedLanguage] = React.useState<"pt" | "en">(
+    locale
+  );
   const router = useRouter();
 
   React.useEffect(() => {
@@ -68,9 +71,11 @@ export default function Combobox() {
                 <CommandItem
                   key={language.value}
                   value={language.value}
-                  onSelect={(currentValue) => {
+                  onSelect={(currentValue: "pt" | "en") => {
                     setSelectedLanguage(
-                      currentValue === selectedLanguage ? "" : currentValue
+                      currentValue === selectedLanguage
+                        ? undefined
+                        : currentValue
                     );
                     setOpen(false);
                   }}

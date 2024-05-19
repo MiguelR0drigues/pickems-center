@@ -99,13 +99,13 @@ export const GroupItemComponent: FC<CardProps> = ({
       ref={ref}
       style={{ opacity }}
       data-handler-id={handlerId}
-      className="country h-18 flex justify-between items-center"
+      className="country h-16 flex justify-between items-center sm:h-24"
     >
       <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-between items-center text-start">
-        <div className="border border-green-500 p-1 rounded-md bg-neutral-600">
+        <div className="border border-green-500 p-1 rounded-md bg-neutral-600 ">
           <span className={`fi fi-${code} text-3xl`}></span>
         </div>
-        <CardTitle> {text}</CardTitle>
+        <CardTitle className="text-xl sm:text-2xl"> {text}</CardTitle>
         <GrabIcon />
       </CardHeader>
     </Card>

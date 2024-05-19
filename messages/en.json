@@ -86,5 +86,10 @@
         "bullet1": "Predicted correct winner:"
       }
     }
+  },
+  "errors": {
+    "featureNotAvailable": "Feature not available",
+    "comeBackLater": "Come back later!",
+    "notStarted": "The competition hasn't started yet. Feature will be available as soon as possible!"
   }
 }
