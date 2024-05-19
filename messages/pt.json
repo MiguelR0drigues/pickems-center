@@ -86,5 +86,10 @@
         "bullet1": "Prevê o vencedor correto:"
       }
     }
+  },
+  "errors": {
+    "featureNotAvailable": "Funcionalidade indisponível",
+    "comeBackLater": "Volte mais tarde!",
+    "notStarted": "A competição ainda não começou. A funcionalidade estará disponível assim que possível!"
   }
 }
