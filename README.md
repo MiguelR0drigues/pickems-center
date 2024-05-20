@@ -8,12 +8,12 @@ Users can access the platform and make predictions by dragging and dropping team
 
 ## Features
 
-- Intuitive drag-and-drop interface for making predictions.
-- Point system that rewards accuracy in predicting group standings.
-- Leaderboard page to track users' rankings and standings.
-- Interactive and engaging gameplay experience.
-- Authentication
-- Ability to view and compare other users' predictions with your own.
+- ✔ Intuitive drag-and-drop interface for making predictions.
+- ✔ Point system that rewards accuracy in predicting group standings.
+- ✔ Leaderboard page to track users' rankings and standings.
+- ✔ Interactive and engaging gameplay experience.
+- ❌ Authentication
+- ❌ Ability to view and compare other users' predictions with your own.
 
 ## Technologies Used
 
