@@ -22,13 +22,15 @@ export const Group: FC<{
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     setCards((prevCards: GroupItem[]) => {
-      updateCurrentGroups({ [groupName]: prevCards });
-      return update(prevCards, {
+      const updatedCards = update(prevCards, {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, prevCards[dragIndex] as GroupItem],
         ],
       });
+      updateCurrentGroups({ [groupName]: updatedCards });
+
+      return updatedCards;
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

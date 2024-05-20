@@ -54,7 +54,7 @@ const Navbar = (): JSX.Element => {
             Pickems
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link
             href={`/${locale}/login`}
             className={`hover:text-green-400 ${
@@ -65,7 +65,7 @@ const Navbar = (): JSX.Element => {
           >
             Login
           </Link>
-        </li>
+        </li> */}
       </ul>
       <Combobox key={"languages"} />
     </div>
