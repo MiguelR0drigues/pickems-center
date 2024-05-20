@@ -32,9 +32,9 @@ const languages = [
 export default function Combobox() {
   const { locale } = useParams<{ locale: "pt" | "en" }>();
   const [open, setOpen] = React.useState(false);
-  const [selectedLanguage, setSelectedLanguage] = React.useState<"pt" | "en">(
-    locale
-  );
+  const [selectedLanguage, setSelectedLanguage] = React.useState<
+    "pt" | "en" | undefined
+  >(locale);
   const router = useRouter();
 
   React.useEffect(() => {
