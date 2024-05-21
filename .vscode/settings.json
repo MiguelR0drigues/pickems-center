@@ -1,4 +1,7 @@
 {
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
   "cSpell.words": [
     "ação",
     "Acompanha",
@@ -66,5 +69,10 @@
     "Ucrânia",
     "vencedor",
     "vindo"
-  ]
+  ],
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true
 }
