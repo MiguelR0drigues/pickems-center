@@ -1,43 +1,32 @@
 "use client";
-import { useState } from "react";
-import { supabase } from "../../lib/supabaseClient";
+import { createClient } from "@/app/utils/supabase/client";
+import { login, signup } from "./actions";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = async (email, password) => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-      console.log("User was signed in!");
-    } catch (error) {
-      console.error("Error thrown:", error.message);
-    }
-  };
+export default function LoginPage() {
+  const supabase = createClient();
 
   return (
-    <div>
-      <input
-        id="email"
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={() => handleLogin(email, password)}>
-        Sign in with Email
-      </button>
+    <>
+      <form>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          style={{ color: "black", fontSize: "12px", padding: "6px" }}
+          required
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          style={{ color: "black", fontSize: "12px", padding: "6px" }}
+          required
+        />
+        <button formAction={login}>Log in</button>
+        <button formAction={signup}>Sign up</button>
+      </form>
       <button
         onClick={() => {
           supabase.auth.signInWithOAuth({
@@ -47,6 +36,6 @@ export default function Login() {
       >
         Sign in with Google
       </button>
-    </div>
+    </>
   );
 }

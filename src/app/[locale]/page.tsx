@@ -2,7 +2,11 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Page({ params }): JSX.Element {
+export default function Page({
+  params,
+}: {
+  params: { locale: string };
+}): JSX.Element {
   const t = useTranslations("HomeScreen");
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-white">

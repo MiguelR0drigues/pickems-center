@@ -63,16 +63,16 @@
     "República",
     "Roménia",
     "Sérvia",
+    "signup",
     "Suíça",
+    "supabase",
     "terminarão",
     "Turquia",
     "Ucrânia",
     "vencedor",
     "vindo"
   ],
-  "deno.enablePaths": [
-    "supabase/functions"
-  ],
+  "deno.enablePaths": ["supabase/functions"],
   "deno.lint": true,
   "deno.unstable": true
 }
