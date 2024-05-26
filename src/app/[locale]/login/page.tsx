@@ -1,6 +1,5 @@
 "use client";
 import { createClient } from "@/app/utils/supabase/client";
-import { login, signup } from "./actions";
 
 export default function LoginPage() {
   const supabase = createClient();
@@ -24,8 +23,8 @@ export default function LoginPage() {
           style={{ color: "black", fontSize: "12px", padding: "6px" }}
           required
         />
-        <button formAction={login}>Log in</button>
-        <button formAction={signup}>Sign up</button>
+        <button>Log in</button>
+        <button>Sign up</button>
       </form>
       <button
         onClick={() => {

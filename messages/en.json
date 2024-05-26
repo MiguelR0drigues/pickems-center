@@ -85,6 +85,30 @@
         "title": "Elimination Stage",
         "bullet1": "Predicted correct winner:"
       }
+    },
+    "authWithGoogle": {
+      "signup": "Sign up with Google",
+      "signin": "Sign in with Google"
+    },
+    "authForm": {
+      "signin": {
+        "title": "Sign in",
+        "email": "Email",
+        "emailPlaceholder": "example@gmail.com",
+        "password": "Password",
+        "passwordPlaceholder": "Make sure it's safe",
+        "button": "Sign in"
+      },
+      "signup": {
+        "title": "Sign up",
+        "name": "Your name",
+        "namePlaceholder": "First and last name",
+        "email": "Email",
+        "emailPlaceholder": "example@gmail.com",
+        "password": "Password",
+        "passwordPlaceholder": "Make sure it's safe",
+        "button": "Sign up"
+      }
     }
   },
   "errors": {

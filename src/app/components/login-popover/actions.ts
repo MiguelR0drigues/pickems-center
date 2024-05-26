@@ -11,12 +11,13 @@ export async function login(formData: FormData) {
   const locale = cookieStore.get("NEXT_LOCALE");
   const supabase = createClient();
 
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  const payload = {
+    email: formData.get('si-email') as string,
+    password: formData.get('si-password') as string,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const {data, error } = await supabase.auth.signInWithPassword(payload);
+
 
   if (error) {
     redirect(`/${locale?.value}/error`);
@@ -31,12 +32,16 @@ export async function signup(formData: FormData) {
   const locale = cookieStore.get("NEXT_LOCALE");
   const supabase = createClient();
 
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
+  const payload = {
+    name: formData.get('su-username') as string,
+    email: formData.get('su-email') as string,
+    password: formData.get('su-password') as string,
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  console.log(payload)
+
+  const { data, error } = await supabase.auth.signUp(payload);
+  console.log(data)
 
   if (error) {
     redirect(`/${locale?.value}/error`);

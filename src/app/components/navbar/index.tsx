@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import LoginPopover from "../login-popover";
 import Combobox from "../ui/combobox";
 
 const Navbar = ({
@@ -22,6 +23,7 @@ const Navbar = ({
           className="rounded max-w-12 sm:max-w-max"
         />
       </Link>
+
       <ul className="flex flex-row items-center justify-center gap-4 text-white text-sm sm:text-lg font-bold mt-8 mb-8">
         <li>
           <Link
@@ -64,7 +66,10 @@ const Navbar = ({
           </Link>
         </li>
       </ul>
-      <Combobox key={"languages"} />
+      <div className="flex gap-2">
+        <LoginPopover />
+        <Combobox key={"languages"} />
+      </div>
     </div>
   );
 };

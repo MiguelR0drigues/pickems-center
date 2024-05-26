@@ -85,6 +85,30 @@
         "title": "Fase de Eliminação",
         "bullet1": "Prevê o vencedor correto:"
       }
+    },
+    "authWithGoogle": {
+      "signup": "Regista-te com o Google",
+      "signin": "Inicia sessão com o Google"
+    },
+    "authForm": {
+      "signin": {
+        "title": "Inicia sessão",
+        "email": "Email",
+        "emailPlaceholder": "exemplo@gmail.com",
+        "password": "Palavra-Passe",
+        "passwordPlaceholder": "Garanta que é segura",
+        "button": "Iniciar sessão"
+      },
+      "signup": {
+        "title": "Regista-te",
+        "name": "O seu nome",
+        "namePlaceholder": "Primeiro e último nome",
+        "email": "Email",
+        "emailPlaceholder": "exemplo@gmail.com",
+        "password": "Palavra-Passe",
+        "passwordPlaceholder": "Garanta que é segura",
+        "button": "Registar"
+      }
     }
   },
   "errors": {

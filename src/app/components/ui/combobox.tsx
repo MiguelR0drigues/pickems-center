@@ -32,9 +32,9 @@ const languages = [
 export default function Combobox() {
   const { locale } = useParams<{ locale: "pt" | "en" }>();
   const [open, setOpen] = React.useState(false);
-  const [selectedLanguage, setSelectedLanguage] = React.useState<"pt" | "en">(
-    locale
-  );
+  const [selectedLanguage, setSelectedLanguage] = React.useState<
+    "pt" | "en" | string | undefined
+  >(locale);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -71,7 +71,7 @@ export default function Combobox() {
                 <CommandItem
                   key={language.value}
                   value={language.value}
-                  onSelect={(currentValue: "pt" | "en") => {
+                  onSelect={(currentValue: string) => {
                     setSelectedLanguage(
                       currentValue === selectedLanguage
                         ? undefined
