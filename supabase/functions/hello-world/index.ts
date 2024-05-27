@@ -5,7 +5,6 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 /// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
 
-console.log(Deno.env.get("SUPABASE_URL"))
 
 Deno.serve(async (req) => {
   const { name } = await req.json()
