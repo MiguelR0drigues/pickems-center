@@ -1,10 +1,17 @@
 "use client";
+import AuthContent from "@/app/components/auth-content";
 import { Group } from "@/app/components/group";
 import PointsInfoPopover from "@/app/components/points-info-popover";
 import { Button } from "@/app/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+} from "@/app/components/ui/dialog";
 import { useToast } from "@/app/components/ui/use-toast";
 import { mockedGroups } from "@/app/mocked-data";
 import { GroupData } from "@/app/types";
+import { User } from "@supabase/supabase-js";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -12,7 +19,11 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 
-const Pickems = (): JSX.Element => {
+const Pickems = ({
+  userInfo,
+}: {
+  userInfo: User | undefined | null;
+}): JSX.Element => {
   const toaster = useToast();
   const t = useTranslations("PickemsScreen");
 
@@ -20,6 +31,7 @@ const Pickems = (): JSX.Element => {
   const [currentGroups, setCurrentGroups] = useState<GroupData>(
     previousGroups || {}
   );
+  const [showDialog, setShowDialog] = useState<boolean>(false);
 
   const updateCurrentGroups = (newGroup: GroupData) => {
     setCurrentGroups((prev) => {
@@ -27,7 +39,8 @@ const Pickems = (): JSX.Element => {
     });
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = (): any => {
+    if (!userInfo) return setShowDialog(true);
     //TODO: Save ordered groups
     // toaster.toast({
     //   title: "Success!",
@@ -66,6 +79,12 @@ const Pickems = (): JSX.Element => {
       >
         {t("button")}
       </Button>
+      <Dialog open={showDialog} onOpenChange={() => setShowDialog(!showDialog)}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader></DialogHeader>
+          <AuthContent />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

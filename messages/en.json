@@ -111,6 +111,21 @@
       }
     }
   },
+  "toasts": {
+    "logout": {
+      "title": "Logged out successfully!",
+      "description": "Looking forward to see you again!"
+    },
+    "login": {
+      "success": {
+        "title": "Logged in successfully!",
+        "description": "Welcome {{email}}!"
+      },
+      "error": {
+        "title": "Failed to login"
+      }
+    }
+  },
   "errors": {
     "featureNotAvailable": "Feature not available",
     "comeBackLater": "Come back later!",

@@ -1,18 +1,22 @@
 "use client";
 import { createClient } from "@/app/utils/supabase/client";
 import { useTranslations } from "next-intl";
-import { Button } from "../../ui/button";
 import GoogleIcon from "../google-icon";
+import { Button } from "../ui/button";
 
 const AuthWithGoogle = ({ type }: { type: string }) => {
   const supabase = createClient();
   const t = useTranslations("components.authWithGoogle");
 
-  const handleClick = () => {
-    supabase.auth.signInWithOAuth({
+  const handleClick = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
+    if (error) {
+      console.error("Error signing in with Google:", error);
+    }
   };
+
   return (
     <Button className="w-full" type="button" onClick={handleClick}>
       {type === "sign-in" ? (

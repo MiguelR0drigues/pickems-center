@@ -3,11 +3,12 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import dynamic from "next/dynamic";
 import { Montserrat } from "next/font/google";
-import { headers } from "next/headers";
+import React from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { Toaster } from "../components/ui/toaster";
 import "../globals.css";
+import { createClient } from "../utils/supabase/server";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -27,8 +28,17 @@ export default async function RootLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages();
-  const heads = headers();
-  const pathname = heads.get("referer")?.split("/") || "/";
+
+  const supabase = createClient();
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error("Error fetching user:", error);
+  }
 
   return (
     <html lang={locale} className="dark">
@@ -36,10 +46,7 @@ export default async function RootLayout({
         <main className="flex min-h-dvh flex-col items-center justify-start bg-black w-full overflow-hidden">
           <NextIntlClientProvider messages={messages} locale={locale}>
             <Loading />
-            <Navbar
-              locale={locale}
-              currentPath={`/${pathname[pathname.length - 1]}`}
-            />
+            <Navbar locale={locale} userInfo={user} />
             <div className="bg-neutral-800 w-full min-h-full flex justify-center items-center p-3 rounded sm:w-11/12 sm:p-[74px]">
               {children}
             </div>

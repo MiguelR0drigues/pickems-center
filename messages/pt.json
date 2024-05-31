@@ -111,6 +111,21 @@
       }
     }
   },
+  "toasts": {
+    "logout": {
+      "title": "Sessão encerrada!",
+      "description": "Esperamos voltar a encontrar-te em breve!"
+    },
+    "login": {
+      "success": {
+        "title": "Sessão iniciada!",
+        "description": "Bem vindo {{email}}!"
+      },
+      "error": {
+        "title": "Falha ao iniciar sessão"
+      }
+    }
+  },
   "errors": {
     "featureNotAvailable": "Funcionalidade indisponível",
     "comeBackLater": "Volte mais tarde!",
