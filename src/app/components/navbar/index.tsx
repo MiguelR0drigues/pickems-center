@@ -64,11 +64,7 @@ const Navbar = ({ locale }: { locale: string }): JSX.Element => {
         </li>
       </ul>
       <div className="flex gap-2 items-center">
-        {user && user.email ? (
-          <LogoutPopover email={user.email} />
-        ) : (
-          <AuthPopover />
-        )}
+        {user && user.email ? <LogoutPopover /> : <AuthPopover />}
         <Combobox key={"languages"} />
       </div>
     </div>

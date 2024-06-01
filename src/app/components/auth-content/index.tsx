@@ -29,8 +29,8 @@ const AuthContent = () => {
                     id="si-email"
                     name="si-email"
                     placeholder={t("signin.emailPlaceholder")}
-                    required
                     type="email"
+                    required
                   />
                 </div>
                 <div className="space-y-2">
@@ -38,9 +38,9 @@ const AuthContent = () => {
                   <Input
                     id="si-password"
                     name="si-password"
-                    required
                     type="password"
                     placeholder={t("signin.passwordPlaceholder")}
+                    required
                   />
                 </div>
                 <Button
@@ -61,13 +61,23 @@ const AuthContent = () => {
             <form>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="su-username">{t("signup.name")}</Label>
+                  <Label htmlFor="su-username">{t("signup.username")}</Label>
                   <Input
                     id="su-username"
                     name="su-username"
-                    placeholder={t("signup.namePlaceholder")}
-                    required
+                    placeholder={t("signup.username")}
                     type="text"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="su-name">{t("signup.name")}</Label>
+                  <Input
+                    id="su-name"
+                    name="su-name"
+                    placeholder={t("signup.namePlaceholder")}
+                    type="text"
+                    required
                   />
                 </div>
                 <div className="space-y-2">
@@ -76,8 +86,8 @@ const AuthContent = () => {
                     id="su-email"
                     name="su-email"
                     placeholder={t("signup.emailPlaceholder")}
-                    required
                     type="email"
+                    required
                   />
                 </div>
                 <div className="space-y-2">
@@ -85,9 +95,9 @@ const AuthContent = () => {
                   <Input
                     id="su-password"
                     name="su-password"
-                    required
                     type="password"
                     placeholder={t("signup.passwordPlaceholder")}
+                    required
                   />
                 </div>
                 <Button

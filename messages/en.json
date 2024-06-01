@@ -2,7 +2,7 @@
   "HomeScreen": {
     "hero": "Welcome to the",
     "howItWorks": {
-      "title": "How it works?",
+      "title": "How does it works?",
       "bullet1": {
         "title": "Predict & Place",
         "description": "Drag and drop teams into their predicted group stage standings."
@@ -101,6 +101,7 @@
       },
       "signup": {
         "title": "Sign up",
+        "username": "Username",
         "name": "Your name",
         "namePlaceholder": "First and last name",
         "email": "Email",
@@ -111,6 +112,7 @@
       }
     },
     "logoutPopover": {
+      "user": "User:",
       "button": "Logout"
     },
     "emptyState": {

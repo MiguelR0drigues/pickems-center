@@ -36,6 +36,7 @@ export async function signup(formData: FormData) {
 
   const payload = {
     username: formData.get('su-username') as string,
+    name: formData.get('su-name') as string,
     email: formData.get('su-email') as string,
     password: formData.get('su-password') as string,
   };
@@ -46,6 +47,7 @@ export async function signup(formData: FormData) {
     options: {
       data:{
         username: payload.username,
+        name: payload.name,
       }
     }
   });
