@@ -39,7 +39,7 @@ export default function Combobox() {
 
   React.useEffect(() => {
     router.replace(`/${selectedLanguage}`);
-  }, [router, selectedLanguage]);
+  }, [selectedLanguage]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

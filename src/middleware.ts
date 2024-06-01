@@ -2,6 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { type NextRequest } from 'next/server';
 import { updateSession } from "./app/utils/supabase/middleware";
 
+
 export async function middleware(request: NextRequest) {
   // Update user's auth session
   const response = await updateSession(request);

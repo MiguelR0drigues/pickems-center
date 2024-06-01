@@ -1,16 +1,19 @@
+"use client";
+import { useUser } from "@/app/contexts/UserContext";
 import Image from "next/image";
 import Link from "next/link";
-import LoginPopover from "../login-popover";
+import { usePathname } from "next/navigation";
+import AuthPopover from "../auth-popover";
+import LogoutPopover from "../logout-popover";
 import Combobox from "../ui/combobox";
 
-const Navbar = ({
-  locale,
-  currentPath,
-}: {
-  locale: string;
-  currentPath: string;
-}): JSX.Element => {
-  const isActive = (path: string) => currentPath === path;
+const Navbar = ({ locale }: { locale: string }): JSX.Element => {
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
+
+  const { user } = useUser();
+
+  console.log(user);
 
   return (
     <div className="flex flex-row items-center justify-between gap-2 w-max mr-2 ml-2 sm:gap-9 sm:w-11/12">
@@ -39,7 +42,9 @@ const Navbar = ({
           <Link
             href={`/${locale}/leaderboard`}
             className={`hover:text-green-400 ${
-              isActive(`/leaderboard`) ? "border-b-2 border-green-500" : ""
+              isActive(`/${locale}/leaderboard`)
+                ? "border-b-2 border-green-500"
+                : ""
             }`}
           >
             Leaderboard
@@ -49,25 +54,21 @@ const Navbar = ({
           <Link
             href={`/${locale}/pickems`}
             className={`hover:text-green-400 ${
-              isActive(`/pickems`) ? "border-b-2 border-green-500" : ""
+              isActive(`/${locale}/pickems`)
+                ? "border-b-2 border-green-500"
+                : ""
             }`}
           >
             Pickems
           </Link>
         </li>
-        <li>
-          <Link
-            href={`/${locale}/login`}
-            className={`hover:text-green-400 ${
-              isActive(`/login`) ? "border-b-2 border-green-500" : ""
-            }`}
-          >
-            Login
-          </Link>
-        </li>
       </ul>
-      <div className="flex gap-2">
-        <LoginPopover />
+      <div className="flex gap-2 items-center">
+        {user && user.email ? (
+          <LogoutPopover email={user.email} />
+        ) : (
+          <AuthPopover />
+        )}
         <Combobox key={"languages"} />
       </div>
     </div>
