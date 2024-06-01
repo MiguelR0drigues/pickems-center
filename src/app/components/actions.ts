@@ -21,7 +21,7 @@ export async function login(formData: FormData) {
   console.log("ACTION LOGIN > SUCCESS > DATA", data)
 
   if (error) {
-    console.error("ACTION LOGIN > ERROR > ERROR", error)
+    console.error("ACTION LOGIN > ERROR > ERROR", error.message)
     redirect(`/${locale?.value}?error=${error.message}`);
   }
 
@@ -55,7 +55,7 @@ export async function signup(formData: FormData) {
   console.log("ACTION REGISTER > SUCCESS > DATA", data)
 
   if (error) {
-    console.error("ACTION REGISTER > ERROR > ERROR", error)
+    console.error("ACTION REGISTER > ERROR > ERROR", error.message)
     redirect(`/${locale?.value}?error=${error.message}`);
   }
 

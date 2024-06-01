@@ -12,7 +12,7 @@ import {
 import { useToast } from "@/app/components/ui/use-toast";
 import { useUser } from "@/app/contexts/UserContext";
 import { GroupData } from "@/app/types";
-import { createClient } from "@/app/utils/supabase/client";
+import jwt from "jsonwebtoken";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -24,33 +24,38 @@ const Pickems = (): JSX.Element => {
   const { user } = useUser();
   const toaster = useToast();
   const t = useTranslations();
-  const supabase = createClient();
 
   const [currentGroups, setCurrentGroups] = useState<GroupData>({});
   const [showDialog, setShowDialog] = useState<boolean>(false);
 
-  useEffect(() => {
-    async function fetchPickems() {
-      const { data, error } = await supabase.rpc("getValues");
-      return { data, error };
-    }
+  const token = jwt.sign({}, process.env.NEXT_PUBLIC_JWT_SECRET!, {
+    algorithm: "HS256",
+  });
 
-    const fetchData = async () => {
-      const { data, error } = await fetchPickems();
-      if (error) {
+  useEffect(() => {
+    if (!user) return;
+
+    fetch(
+      `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/getGroupsScores?userUUID=${user.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => setCurrentGroups(res.groups))
+      .catch(() =>
         toaster.toast({
           variant: "destructive",
           title: t("toasts.pickems.fetchError.title"),
           description: t("toasts.pickems.fetchError.description"),
-        });
-      } else {
-        setCurrentGroups(data);
-      }
-    };
-
-    fetchData();
+        })
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const updateCurrentGroups = (newGroup: GroupData) => {
     setCurrentGroups((prev) => {
@@ -58,40 +63,38 @@ const Pickems = (): JSX.Element => {
     });
   };
 
-  const handleSubmit = (): any => {
+  const handleSubmit = () => {
     if (!user) return setShowDialog(true);
 
-    async function updatePickems() {
-      const { data, error } = await supabase.rpc("updateOrCreateValues", {
-        groups: currentGroups,
-        userUUID: user?.id,
-      });
-      return { data, error };
-    }
-
-    const updateDate = async () => {
-      const { data, error } = await updatePickems();
-      if (error) {
+    fetch(
+      `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/updateGroupsScores`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          groups: currentGroups,
+          userUUID: user?.id,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then(() => {
         toaster.toast({
-          variant: "destructive",
-          title: t("toasts.pickems.fetchError.title"),
-          description: t("toasts.pickems.fetchError.description"),
-        });
-      } else {
-        toaster.toast({
+          variant: "default",
           title: t("toasts.pickems.updateSuccess.title"),
           description: t("toasts.pickems.updateSuccess.description"),
         });
-      }
-    };
-
-    updateDate();
-
-    toaster.toast({
-      variant: "destructive",
-      title: t("toasts.pickems.updateError.title"),
-      description: t("toasts.pickems.updateError.description"),
-    });
+      })
+      .catch(() =>
+        toaster.toast({
+          variant: "destructive",
+          title: t("toasts.pickems.updateError.title"),
+          description: t("toasts.pickems.updateError.description"),
+        })
+      );
   };
 
   return (

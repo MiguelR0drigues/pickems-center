@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useUser } from "@/app/contexts/UserContext";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AuthPopover from "../auth-popover";
@@ -13,12 +13,10 @@ const Navbar = ({ locale }: { locale: string }): JSX.Element => {
 
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <div className="flex flex-row items-center justify-between gap-2 w-max mr-2 ml-2 sm:gap-9 sm:w-11/12">
       <Link href={`/${locale}`}>
-        <Image
+        <img
           src="/logo.png"
           alt="Logo"
           width={100}

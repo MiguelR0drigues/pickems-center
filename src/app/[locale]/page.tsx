@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Page({
@@ -8,11 +8,12 @@ export default function Page({
   params: { locale: string };
 }): JSX.Element {
   const t = useTranslations("HomeScreen");
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-white">
       {/* Hero Section */}
       <div className="text-center mb-8 relative w-full">
-        <Image
+        <img
           src="/banner.jpg"
           alt="Soccer Action"
           width={100}
@@ -68,12 +69,11 @@ export default function Page({
             </Link>
           </div>
         </div>
-        <Image
+        <img
           src="/phone.png"
           alt="Soccer Action"
           width={100}
           height={100}
-          loading="lazy"
           className="w-32 h-60 rounded-lg"
           style={{ maxWidth: "200px" }}
         />
