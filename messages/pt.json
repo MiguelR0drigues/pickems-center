@@ -136,6 +136,14 @@
       "fetchError": {
         "title": "Algo correu mal!",
         "description": "Não conseguimos obter os grupos de momento. Tente novamente mais tarde!"
+      },
+      "updateSuccess": {
+        "title": "Sucesso!",
+        "description": "Os teus pickems foram guardados!"
+      },
+      "updateError": {
+        "title": "Uh oh! Algo correu mal.",
+        "description": "Houve um problema com os teus pickems. Tenta novamente mais tarde!"
       }
     }
   },

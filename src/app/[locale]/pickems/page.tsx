@@ -11,7 +11,6 @@ import {
 } from "@/app/components/ui/dialog";
 import { useToast } from "@/app/components/ui/use-toast";
 import { useUser } from "@/app/contexts/UserContext";
-import { mockedGroups } from "@/app/mocked-data";
 import { GroupData } from "@/app/types";
 import { createClient } from "@/app/utils/supabase/client";
 import { useTranslations } from "next-intl";
@@ -27,16 +26,12 @@ const Pickems = (): JSX.Element => {
   const t = useTranslations();
   const supabase = createClient();
 
-  const [currentGroups, setCurrentGroups] = useState<GroupData>(
-    mockedGroups.data || {}
-  );
+  const [currentGroups, setCurrentGroups] = useState<GroupData>({});
   const [showDialog, setShowDialog] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchPickems() {
-      const { data, error } = await supabase.rpc("getValues", {
-        r_status: "approved",
-      });
+      const { data, error } = await supabase.rpc("getValues");
       return { data, error };
     }
 
@@ -65,15 +60,37 @@ const Pickems = (): JSX.Element => {
 
   const handleSubmit = (): any => {
     if (!user) return setShowDialog(true);
-    //TODO: Save ordered groups
-    // toaster.toast({
-    //   title: "Success!",
-    //   description: "Your pickems were successfully saved",
-    // });
+
+    async function updatePickems() {
+      const { data, error } = await supabase.rpc("updateOrCreateValues", {
+        groups: currentGroups,
+        userUUID: user?.id,
+      });
+      return { data, error };
+    }
+
+    const updateDate = async () => {
+      const { data, error } = await updatePickems();
+      if (error) {
+        toaster.toast({
+          variant: "destructive",
+          title: t("toasts.pickems.fetchError.title"),
+          description: t("toasts.pickems.fetchError.description"),
+        });
+      } else {
+        toaster.toast({
+          title: t("toasts.pickems.updateSuccess.title"),
+          description: t("toasts.pickems.updateSuccess.description"),
+        });
+      }
+    };
+
+    updateDate();
+
     toaster.toast({
       variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your pickems. Try again later!",
+      title: t("toasts.pickems.updateError.title"),
+      description: t("toasts.pickems.updateError.description"),
     });
   };
 

@@ -136,6 +136,14 @@
       "fetchError": {
         "title": "Something went wrong!",
         "description": "We can't provide you with the groups at this time. Try again later!"
+      },
+      "updateSuccess": {
+        "title": "Success!",
+        "description": "Your pickems were successfully saved!"
+      },
+      "updateError": {
+        "title": "Uh oh! Something went wrong.",
+        "description": "There was a problem with your pickems. Try again later!"
       }
     }
   },

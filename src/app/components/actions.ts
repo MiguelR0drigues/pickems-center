@@ -35,12 +35,20 @@ export async function signup(formData: FormData) {
   const supabase = createClient();
 
   const payload = {
-    name: formData.get('su-username') as string,
+    username: formData.get('su-username') as string,
     email: formData.get('su-email') as string,
     password: formData.get('su-password') as string,
   };
 
-  const { data, error } = await supabase.auth.signUp(payload);
+  const { data, error } = await supabase.auth.signUp({
+    email: payload.email,
+    password: payload.password,
+    options: {
+      data:{
+        username: payload.username,
+      }
+    }
+  });
 
   console.log("ACTION REGISTER > SUCCESS > DATA", data)
 

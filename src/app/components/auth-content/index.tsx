@@ -2,7 +2,6 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { login, signup } from "../actions";
-import AuthWithGoogle from "../google-auth-button";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
@@ -51,7 +50,6 @@ const AuthContent = () => {
                 >
                   {t("signin.button")}
                 </Button>
-                <AuthWithGoogle type="sign-in" />
               </div>
             </form>
           </CardContent>
@@ -99,7 +97,6 @@ const AuthContent = () => {
                 >
                   {t("signup.button")}
                 </Button>
-                <AuthWithGoogle type={tabValue} />
               </div>
             </form>
           </CardContent>
