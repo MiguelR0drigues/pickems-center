@@ -38,7 +38,7 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   if (error) {
-    console.error("Error fetching user:", error);
+    console.error("Error fetching user:", error.message);
   }
 
   return (

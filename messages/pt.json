@@ -101,6 +101,7 @@
       },
       "signup": {
         "title": "Regista-te",
+        "username": "Nome de utilizador",
         "name": "O seu nome",
         "namePlaceholder": "Primeiro e último nome",
         "email": "Email",
@@ -111,6 +112,7 @@
       }
     },
     "logoutPopover": {
+      "user": "Utilizador:",
       "button": "Terminar sessão"
     },
     "emptyState": {

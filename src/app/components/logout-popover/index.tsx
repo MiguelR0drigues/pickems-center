@@ -1,4 +1,5 @@
 "use client";
+import { useUser } from "@/app/contexts/UserContext";
 import { LogOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -9,10 +10,11 @@ import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useToast } from "../ui/use-toast";
 
-const LogoutPopover = ({ email }: { email: string }) => {
+const LogoutPopover = () => {
   const toaster = useToast();
   const [open, setOpen] = useState(false);
   const t = useTranslations();
+  const { user } = useUser();
 
   const handleLogout = async () => {
     await logout();
@@ -30,13 +32,13 @@ const LogoutPopover = ({ email }: { email: string }) => {
           <UserLoggedIn />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-min p-4 rounded shadow-md flex flex-col items-center gap-4">
+      <PopoverContent className="w-full p-4 rounded shadow-md flex flex-col items-center gap-4">
         <span className="w-full flex flex-col items-center gap-1">
           <Label className="w-full flex items-center justify-start text-white text-xs">
-            Email:
+            {t("components.logoutPopover.user")}
           </Label>
           <Label className="w-full flex items-center justify-start text-green-600">
-            {email}
+            {user?.user_metadata.name}
           </Label>
         </span>
         <Button

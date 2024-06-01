@@ -95,19 +95,19 @@ export default function Page({
           </h2>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet1")}</p>
-            <p className="text-green-500">+24 {t("points.points")}</p>
+            <p className="text-green-500 text-end">+24 {t("points.points")}</p>
           </section>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet2")}</p>
-            <p className="text-green-500">+5 {t("points.points")}</p>
+            <p className="text-green-500 text-end">+5 {t("points.points")}</p>
           </section>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet3")}</p>
-            <p className="text-green-500">+2 {t("points.points")}</p>
+            <p className="text-green-500 text-end">+2 {t("points.points")}</p>
           </section>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet4")}</p>
-            <p className="text-red-500">-3 {t("points.points")}</p>
+            <p className="text-red-500 text-end">-3 {t("points.points")}</p>
           </section>
         </article>
 
