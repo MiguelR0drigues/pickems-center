@@ -29,7 +29,6 @@ export default async function RootLayout({
   params: { locale: string };
 }) {
   const messages = await getMessages();
-
   const supabase = createClient();
 
   const {
@@ -40,14 +39,13 @@ export default async function RootLayout({
   if (error) {
     console.error("Error fetching user:", error.message);
   }
-
   return (
     <html lang={locale} className="dark">
       <body className={montserrat.className}>
         <main className="flex min-h-dvh flex-col items-center justify-start bg-black w-full overflow-hidden">
           <NextIntlClientProvider messages={messages} locale={locale}>
             <UserProvider user={user}>
-              <Loading />
+              {/* <Loading /> */}
               <Navbar locale={locale} />
               <div className="bg-neutral-800 w-full min-h-full flex justify-center items-center p-3 rounded sm:w-11/12 sm:p-[74px]">
                 {children}

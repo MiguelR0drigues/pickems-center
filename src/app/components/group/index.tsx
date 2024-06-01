@@ -17,7 +17,6 @@ export const Group: FC<{
   updateCurrentGroups: (newGroups: GroupData) => void;
 }> = ({ id, groupsData, groupName, updateCurrentGroups }) => {
   const [cards, setCards] = useState<GroupItem[]>(groupsData);
-
   const t = useTranslations();
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -40,9 +39,9 @@ export const Group: FC<{
     (card: GroupItem, index: number) => {
       return (
         <GroupItemComponent
-          key={card.id}
+          key={card.countryId}
           index={index}
-          id={card.id}
+          id={card.countryId}
           code={card.code}
           text={t(`countries.${card.name.toLowerCase()}`)}
           moveCard={moveCard}
@@ -52,7 +51,6 @@ export const Group: FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [moveCard]
   );
-
   return (
     <div id={id} className="group grid min-w-[270px] sm:min-w-[400px]">
       <Card className="bg-neutral-900 h-14 flex justify-between items-center">
@@ -62,10 +60,7 @@ export const Group: FC<{
           </CardTitle>
         </CardHeader>
       </Card>
-      <div
-        id={`group-dnd-${groupsData[0].id.split("")[0]}`}
-        style={{ cursor: "grab" }}
-      >
+      <div id={`group-dnd-${groupName}`} style={{ cursor: "grab" }}>
         {cards.map((card, i) => renderCard(card, i))}
       </div>
     </div>

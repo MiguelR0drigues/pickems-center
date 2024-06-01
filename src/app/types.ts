@@ -1,8 +1,9 @@
 export type GroupItem = {
-  id: string;
+  countryId: string;
   code: string;
   name: string;
   points: number;
+  order: number;
 };
 
 export type GroupData = {
