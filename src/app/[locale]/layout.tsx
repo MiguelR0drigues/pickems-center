@@ -7,6 +7,7 @@ import React from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { Toaster } from "../components/ui/toaster";
+import { UserProvider } from "../contexts/UserContext"; // Import the UserProvider
 import "../globals.css";
 import { createClient } from "../utils/supabase/server";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -45,13 +46,15 @@ export default async function RootLayout({
       <body className={montserrat.className}>
         <main className="flex min-h-dvh flex-col items-center justify-start bg-black w-full overflow-hidden">
           <NextIntlClientProvider messages={messages} locale={locale}>
-            <Loading />
-            <Navbar locale={locale} userInfo={user} />
-            <div className="bg-neutral-800 w-full min-h-full flex justify-center items-center p-3 rounded sm:w-11/12 sm:p-[74px]">
-              {children}
-            </div>
-            <Footer />
-            <Toaster />
+            <UserProvider user={user}>
+              <Loading />
+              <Navbar locale={locale} />
+              <div className="bg-neutral-800 w-full min-h-full flex justify-center items-center p-3 rounded sm:w-11/12 sm:p-[74px]">
+                {children}
+              </div>
+              <Footer />
+              <Toaster />
+            </UserProvider>
           </NextIntlClientProvider>
         </main>
       </body>

@@ -1,5 +1,5 @@
 "use client";
-import { User } from "@supabase/supabase-js";
+import { useUser } from "@/app/contexts/UserContext";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,15 +7,13 @@ import AuthPopover from "../auth-popover";
 import LogoutPopover from "../logout-popover";
 import Combobox from "../ui/combobox";
 
-const Navbar = ({
-  locale,
-  userInfo,
-}: {
-  locale: string;
-  userInfo: User | null;
-}): JSX.Element => {
+const Navbar = ({ locale }: { locale: string }): JSX.Element => {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
+
+  const { user } = useUser();
+
+  console.log(user);
 
   return (
     <div className="flex flex-row items-center justify-between gap-2 w-max mr-2 ml-2 sm:gap-9 sm:w-11/12">
@@ -66,8 +64,8 @@ const Navbar = ({
         </li>
       </ul>
       <div className="flex gap-2 items-center">
-        {userInfo && userInfo.email ? (
-          <LogoutPopover email={userInfo.email} />
+        {user && user.email ? (
+          <LogoutPopover email={user.email} />
         ) : (
           <AuthPopover />
         )}

@@ -109,6 +109,13 @@
         "passwordPlaceholder": "Garanta que é segura",
         "button": "Registar"
       }
+    },
+    "logoutPopover": {
+      "button": "Terminar sessão"
+    },
+    "emptyState": {
+      "title": "Oops, algo correu mal 😅",
+      "description": "De momento não é possivel mostrar esta informação."
     }
   },
   "toasts": {
@@ -123,6 +130,12 @@
       },
       "error": {
         "title": "Falha ao iniciar sessão"
+      }
+    },
+    "pickems": {
+      "fetchError": {
+        "title": "Algo correu mal!",
+        "description": "Não conseguimos obter os grupos de momento. Tente novamente mais tarde!"
       }
     }
   },

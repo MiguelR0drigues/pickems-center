@@ -1,20 +1,32 @@
 "use client";
 import { createClient } from "@/app/utils/supabase/client";
 import { useTranslations } from "next-intl";
-import GoogleIcon from "../google-icon";
+import { useParams } from "next/navigation";
+import GoogleIcon from "../icons/google";
 import { Button } from "../ui/button";
 
 const AuthWithGoogle = ({ type }: { type: string }) => {
+  const params = useParams();
   const supabase = createClient();
   const t = useTranslations("components.authWithGoogle");
+  const locale = params.locale; // Get the current locale
 
-  const handleClick = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-    });
-    if (error) {
-      console.error("Error signing in with Google:", error);
-    }
+  const handleClick = () => {
+    supabase.auth
+      .signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/${locale}/auth/callback`,
+        },
+      })
+      .then(({ error }) => {
+        if (error) {
+          console.error("Error signing in with Google:", error);
+        }
+      })
+      .catch((error) => {
+        console.error("Unexpected error signing in with Google:", error);
+      });
   };
 
   return (

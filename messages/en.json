@@ -109,6 +109,13 @@
         "passwordPlaceholder": "Make sure it's safe",
         "button": "Sign up"
       }
+    },
+    "logoutPopover": {
+      "button": "Logout"
+    },
+    "emptyState": {
+      "title": "Oops, something went wrong 😅",
+      "description": "At the moment we can't show this information."
     }
   },
   "toasts": {
@@ -123,6 +130,12 @@
       },
       "error": {
         "title": "Failed to login"
+      }
+    },
+    "pickems": {
+      "fetchError": {
+        "title": "Something went wrong!",
+        "description": "We can't provide you with the groups at this time. Try again later!"
       }
     }
   },
