@@ -15,7 +15,8 @@ export const Group: FC<{
   groupName: string;
   groupsData: GroupItem[];
   updateCurrentGroups: (newGroups: GroupData) => void;
-}> = ({ id, groupsData, groupName, updateCurrentGroups }) => {
+  isThirds: boolean;
+}> = ({ id, groupsData, groupName, updateCurrentGroups, isThirds = false }) => {
   const [cards, setCards] = useState<GroupItem[]>(groupsData);
   const t = useTranslations();
 
@@ -45,6 +46,7 @@ export const Group: FC<{
           code={card.code}
           text={t(`countries.${card.name.toLowerCase()}`)}
           moveCard={moveCard}
+          isThirds={isThirds}
         />
       );
     },
@@ -52,11 +54,21 @@ export const Group: FC<{
     [moveCard]
   );
   return (
-    <div id={id} className="group grid min-w-[270px] sm:min-w-[400px]">
-      <Card className="bg-neutral-900 h-14 flex justify-between items-center">
+    <div
+      id={id}
+      className={`group grid min-w-[270px] ${
+        isThirds ? "sm:min-w-[350px]" : "sm:min-w-[400px]"
+      }`}
+    >
+      <Card
+        className={`bg-neutral-900 ${
+          isThirds ? "h-10" : "h-14"
+        } flex justify-between items-center`}
+      >
         <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-center items-center">
-          <CardTitle>
-            {t("PickemsScreen.group")} {groupName}
+          <CardTitle className={isThirds ? "text-xl" : ""}>
+            {t("PickemsScreen.group")}{" "}
+            {isThirds ? t("PickemsScreen." + groupName) : groupName}
           </CardTitle>
         </CardHeader>
       </Card>

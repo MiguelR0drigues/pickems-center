@@ -43,6 +43,8 @@
   "PickemsScreen": {
     "title": "Pickems",
     "group": "Group",
+    "thirdsToAdvance": "of third places",
+    "thirdsDialogTitle": "Thirds to go through",
     "button": "Save"
   },
   "countries": {

@@ -1,5 +1,6 @@
 import type { Identifier, XYCoord } from "dnd-core";
-import type { FC } from "react";
+import { ChevronUp, Plus } from "lucide-react";
+import type { FC, ReactNode } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import GrabIcon from "../icons/grab/grab-icon";
@@ -15,6 +16,7 @@ export interface CardProps {
   index: number;
   code: string;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
+  isThirds: boolean;
 }
 
 interface DragItem {
@@ -29,8 +31,45 @@ export const GroupItemComponent: FC<CardProps> = ({
   code,
   index,
   moveCard,
+  isThirds,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+
+  const iconToRender: { [key: number]: ReactNode } = {
+    0: <ChevronUp />,
+    1: <ChevronUp />,
+    2: (
+      <span className="flex items-center justify-center font-bold min-w-[24px]">
+        ?
+      </span>
+    ),
+    3: <Plus className="rotate-45" />,
+  };
+
+  const iconsToRenderForThirds: { [key: number]: ReactNode } = {
+    0: <ChevronUp />,
+    1: <ChevronUp />,
+    2: <ChevronUp />,
+    3: <ChevronUp />,
+    4: <Plus className="rotate-45" />,
+    5: <Plus className="rotate-45" />,
+  };
+
+  const colors: { [key: number]: string } = {
+    0: "bg-green-500",
+    1: "bg-green-500",
+    2: "bg-yellow-500",
+    3: "bg-red-500",
+  };
+
+  const colorsForThirds: { [key: number]: string } = {
+    0: "bg-green-500",
+    1: "bg-green-500",
+    2: "bg-green-500",
+    3: "bg-green-500",
+    4: "bg-red-500",
+    5: "bg-red-500",
+  };
 
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -99,13 +138,33 @@ export const GroupItemComponent: FC<CardProps> = ({
       ref={ref}
       style={{ opacity }}
       data-handler-id={handlerId}
-      className="country h-16 flex justify-between items-center sm:h-24"
+      className={`country h-16 flex justify-between items-center ${
+        isThirds ? "sm:h-14" : "sm:h-24"
+      }`}
     >
       <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-between items-center text-start">
-        <div className="border border-green-500 p-1 rounded-md bg-neutral-600 ">
-          <span className={`fi fi-${code} text-3xl`}></span>
+        <div className="flex items-center gap-3 h-full">
+          <span
+            className={`flex items-center justify-center min-h-[60px] ${
+              isThirds ? "sm:min-h-[50px]" : "sm:min-h-[90px]"
+            } rounded-l ml-[-22px] ${
+              isThirds ? colorsForThirds[index] : colors[index]
+            }`}
+          >
+            {isThirds ? iconsToRenderForThirds[index] : iconToRender[index]}
+          </span>
+          <div className="border border-green-500 p-1 rounded-md bg-neutral-600 ">
+            <span
+              className={`fi fi-${code} ${isThirds ? "text-lg" : "text-3xl"}`}
+            ></span>
+          </div>
         </div>
-        <CardTitle className="text-xl sm:text-2xl"> {text}</CardTitle>
+        <CardTitle
+          className={`text-xl ${isThirds ? "sm:text-xl" : "sm:text-2xl"}`}
+        >
+          {" "}
+          {text}
+        </CardTitle>
         <GrabIcon />
       </CardHeader>
     </Card>

@@ -43,6 +43,8 @@
   "PickemsScreen": {
     "title": "Pickems",
     "group": "Grupo",
+    "thirdsToAdvance": "dos terceiros",
+    "thirdsDialogTitle": "Terceiros que avançam",
     "button": "Guardar"
   },
   "countries": {

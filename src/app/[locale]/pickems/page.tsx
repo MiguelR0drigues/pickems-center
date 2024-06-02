@@ -9,10 +9,11 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
 } from "@/app/components/ui/dialog";
 import { useToast } from "@/app/components/ui/use-toast";
 import { useUser } from "@/app/contexts/UserContext";
-import { GroupData } from "@/app/types";
+import { GroupData, GroupItem } from "@/app/types";
 import jwt from "jsonwebtoken";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -28,9 +29,11 @@ const Pickems = (): JSX.Element => {
   const t = useTranslations();
 
   const [currentGroups, setCurrentGroups] = useState<GroupData>({});
-  const [showDialog, setShowDialog] = useState<boolean>(false);
+  const [showAuthDialog, setShowAuthDialog] = useState<boolean>(false);
+  const [showThirdsDialog, setShowThirdsDialog] = useState<boolean>(false);
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+  const [thirdPlaces, setThirdPlaces] = useState<GroupData>({});
 
   const token = jwt.sign({}, process.env.NEXT_PUBLIC_JWT_SECRET!, {
     algorithm: "HS256",
@@ -71,11 +74,52 @@ const Pickems = (): JSX.Element => {
     });
   };
 
+  const updateThirdsGroups = (newGroup: GroupData) => {
+    setThirdPlaces((prev) => {
+      return { ...prev, ...newGroup };
+    });
+  };
+
+  const getThirdCountries = (currentGroups: GroupData): GroupItem[] => {
+    const thirdCountries: GroupItem[] = [];
+
+    Object.entries(currentGroups).forEach(([groupName, countries]) => {
+      const sortedCountries = countries.sort(
+        (a: GroupItem, b: GroupItem) => b.points - a.points
+      );
+
+      if (sortedCountries.length >= 3) {
+        const thirdCountry = sortedCountries[2];
+        thirdCountries.push(thirdCountry);
+      }
+    });
+
+    return thirdCountries;
+  };
+
+  const updateOrderValues = (currentGroups: GroupData): GroupData => {
+    const updatedGroups: GroupData = {};
+    Object.entries(currentGroups).forEach(([groupName, countries]) => {
+      const updatedCountries = countries.map((country, index) => ({
+        ...country,
+        order: index + 1,
+      }));
+      updatedGroups[groupName] = updatedCountries;
+    });
+
+    return updatedGroups;
+  };
+
   const handleSubmit = () => {
-    if (!user) return setShowDialog(true);
+    if (!user) return setShowAuthDialog(true);
 
+    setThirdPlaces({ thirdsToAdvance: getThirdCountries(currentGroups) });
+    setShowThirdsDialog(true);
+  };
+
+  const handleComplete = () => {
+    setShowThirdsDialog(false);
     setLoading(true);
-
     fetch(
       `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/updateGroupsScores`,
       {
@@ -85,8 +129,9 @@ const Pickems = (): JSX.Element => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          groups: currentGroups,
           userUUID: user?.id,
+          groups: updateOrderValues(currentGroups),
+          thirdsToAdvance: thirdPlaces.thirdsToAdvance.splice(0, 4),
         }),
       }
     )
@@ -130,6 +175,7 @@ const Pickems = (): JSX.Element => {
                   groupName={group[0]}
                   groupsData={group[1]}
                   updateCurrentGroups={updateCurrentGroups}
+                  isThirds={false}
                 />
               ))}
             </div>
@@ -147,14 +193,42 @@ const Pickems = (): JSX.Element => {
             )}
           </Button>
           <Dialog
-            open={showDialog}
-            onOpenChange={() => setShowDialog(!showDialog)}
+            open={showAuthDialog}
+            onOpenChange={() => setShowAuthDialog(!showAuthDialog)}
           >
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader></DialogHeader>
               <AuthContent />
             </DialogContent>
-          </Dialog>{" "}
+          </Dialog>
+          <Dialog
+            open={showThirdsDialog}
+            onOpenChange={() => setShowThirdsDialog(false)}
+          >
+            <DialogContent className="sm:max-w-[425px] sm:max-h-[550px]">
+              <DialogHeader>
+                <DialogTitle>
+                  {t("PickemsScreen.thirdsDialogTitle")}
+                </DialogTitle>
+              </DialogHeader>
+              <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
+                <Group
+                  id={`pickems-group-thirds`}
+                  groupName={"thirdsToAdvance"}
+                  groupsData={thirdPlaces.thirdsToAdvance}
+                  updateCurrentGroups={updateThirdsGroups}
+                  isThirds={true}
+                />
+              </DndProvider>
+              <Button
+                className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                variant="secondary"
+                onClick={handleComplete}
+              >
+                {t("PickemsScreen.button")}
+              </Button>
+            </DialogContent>
+          </Dialog>
         </>
       ) : (
         <EmptyState />
