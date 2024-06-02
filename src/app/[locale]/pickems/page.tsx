@@ -75,7 +75,12 @@ const Pickems = (): JSX.Element => {
 
   const updateCurrentGroups = (newGroup: GroupData) => {
     setCurrentGroups((prev) => {
-      return { ...prev, ...newGroup };
+      const updatedGroups = { ...prev, ...newGroup };
+      const newThirdPlaces = getThirdCountries(updatedGroups);
+
+      setThirdPlaces({ thirdsToAdvance: newThirdPlaces });
+
+      return updatedGroups;
     });
   };
 
@@ -117,6 +122,7 @@ const Pickems = (): JSX.Element => {
 
   const handleSubmit = () => {
     if (!user) return setShowAuthDialog(true);
+    console.log(thirdPlaces);
     setShowThirdsDialog(true);
   };
 
