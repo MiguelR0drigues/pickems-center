@@ -102,6 +102,7 @@
       "signup": {
         "title": "Sign up",
         "username": "Username",
+        "usernamePlaceholder": "For the leaderboard",
         "name": "Your name",
         "namePlaceholder": "First and last name",
         "email": "Email",
@@ -109,6 +110,13 @@
         "password": "Password",
         "passwordPlaceholder": "Make sure it's safe",
         "button": "Sign up"
+      },
+      "errors": {
+        "username": "Invalid username",
+        "name": "Invalid name",
+        "minLength": "Needs at least 6 characters",
+        "capitalLetters": "Needs at least 1 capital letter",
+        "noNumbers": "Needs at least 1 number"
       }
     },
     "logoutPopover": {

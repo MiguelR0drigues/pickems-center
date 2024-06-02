@@ -102,6 +102,7 @@
       "signup": {
         "title": "Regista-te",
         "username": "Nome de utilizador",
+        "usernamePlaceholder": "Para o quadro de líderes",
         "name": "O seu nome",
         "namePlaceholder": "Primeiro e último nome",
         "email": "Email",
@@ -109,6 +110,13 @@
         "password": "Palavra-Passe",
         "passwordPlaceholder": "Garanta que é segura",
         "button": "Registar"
+      },
+      "errors": {
+        "username": "Nome de utilizador inválido",
+        "name": "Nome inválido",
+        "minLength": "Tem de ter no mínimo 6 caractéres",
+        "capitalLetters": "Tem de ter pelo menos uma letra maiúscula",
+        "noNumbers": "Tem de ter pelo menos um número"
       }
     },
     "logoutPopover": {
