@@ -17,12 +17,22 @@ interface IGroupMap {
 
 interface IGroup {
     countryId: number;
-    pts: number;
-    ord: number;
+    points: number;
+    order: number;
 }
 
 Deno.serve(async (req) => {
-    if (req.method !== 'POST')
+    if (req.method === 'OPTIONS') {
+        return new Response(null, {
+            headers: {
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                "Access-Control-Allow-Credentials": "true",
+            },
+        });
+    }
+    else if (req.method !== 'POST')
         return buildResponse("Method not allowed. Please use POST!", 405)
 
     const {userUUID, groups} = await req.json();
@@ -52,8 +62,8 @@ async function updateOrCreateValues(groups: IGroupMap, userUUID: string): Promis
                     CTR_ID: item.countryId,
                     USR_ID: userUUID,
                     GRP: group,
-                    ORD: item.ord,
-                    PTS: item.pts
+                    ORD: item.order,
+                    PTS: item.points
                 }, {onConflict: ['CTR_ID', 'USR_ID']})
 
             if (error)
@@ -74,7 +84,13 @@ function buildResponse(msg: String, status: number): any{
         JSON.stringify({message: msg}),
         {
             status: status,
-            headers: {"Content-Type": "application/json"}
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                "Access-Control-Allow-Credentials": "true",
+            },
         },
     );
 }

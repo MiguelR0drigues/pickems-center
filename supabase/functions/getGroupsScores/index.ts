@@ -4,16 +4,53 @@ const supabase = createClient(
     Deno.env.get("SUPABASE_URL"),
     Deno.env.get("SUPABASE_ANON_KEY"));
 
+interface Country {
+    ID: number;
+    COD: string;
+    NAM: string;
+}
+
+interface Pick {
+    USR_ID: string;
+    CTR_ID: number;
+    PTS: number;
+    ORD: number;
+    GRP: string;
+}
+
+interface PickWithCountry extends Pick {
+    COD: string;
+    NAM: string;
+}
+
+interface ResponseObject {
+    countryId: number;
+    code: string;
+    name: string;
+    points: number;
+    order: number;
+}
+
 interface Group {
-    [key: string]: any[];
+    [key: string]: PickWithCountry[];
 }
 
 interface Formatted {
-    [key: string]: { countryId: number; pts: number; ord: number }[];
+    [key: string]: ResponseObject[];
 }
 
 Deno.serve(async (req) => {
-  if (req.method !== 'GET')
+    if (req.method === 'OPTIONS') {
+        return new Response(null, {
+            headers: {
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                "Access-Control-Allow-Credentials": "true",
+            },
+        });
+    }
+    else if (req.method !== 'GET')
     return buildResponse("Method not allowed. Please use GET!", 405)
 
     const url = new URL(req.url);
@@ -37,29 +74,50 @@ Deno.serve(async (req) => {
  * @throws {NotFoundError} - If no data found for the given UUID.
  */
 async function getValues(userUUID: string): Promise<Response> {
-    const { data, error } = await supabase
-        .from('Picks')
+    const { data: picksData, error: picksError } = await supabase
+        .from<Pick>('Picks')
         .select('*')
         .eq('USR_ID', userUUID);
 
-    if (error) {
-        return buildResponse('An error occurred while updating data: ' + error.message, 500);
-    } else if (!data || data.length == 0) {
-        return buildResponse("No data found for this UUID", 404);
-    } else {
+    const { data: countriesData, error: countriesError } = await supabase
+        .from<Country>('Countries')
+        .select('*');
 
-        const grouped: Group = data.reduce((result: Group, item: any) => {
-            (result[item.GRP] = result[item.GRP] || []).push(item);
-            return result;
-        }, {});
-
-        const formatted:Formatted = Object.keys(grouped).reduce((result: Formatted, key: string) => {
-            result[key] = grouped[key].map(({CTR_ID, PTS, ORD}) => ({countryId: CTR_ID, pts: PTS, ord: ORD}));
-            return result;
-        },{});
-
-        return buildResponse({groups: formatted}, 200);
+    if (picksError) {
+        return buildResponse('An error occurred while fetching data from Picks: ' + picksError.message, 500);
     }
+
+    if (countriesError) {
+        return buildResponse('An error occurred while fetching data from Countries: ' + countriesError.message, 500);
+    }
+
+    if (!picksData || picksData.length == 0) {
+        return buildResponse("No data found for this UUID in Picks", 404);
+    }
+
+    if (!countriesData || countriesData.length == 0) {
+        return buildResponse("No data found in Countries", 404);
+    }
+
+    const group: Group = picksData.reduce((result: Group, item: Pick) => {
+        const country = countriesData.find((country: Country) => country.ID === item.CTR_ID) || { COD: '', NAM: ''};
+        const pickWithCountry: PickWithCountry = { ...item, ...country };
+        (result[item.GRP] = result[item.GRP] || []).push(pickWithCountry);
+        return result;
+    }, {});
+
+    const formatted: Formatted = Object.keys(group).sort().reduce((result: Formatted, key: string) => {
+        result[key] = group[key].map(({CTR_ID, PTS, ORD, COD, NAM}) => ({
+            countryId: CTR_ID,
+            code: COD,
+            name: NAM,
+            points: PTS,
+            order: ORD
+        }));
+        return result;
+    }, {});
+
+    return buildResponse({groups: formatted}, 200);
 }
 
 /**
@@ -79,6 +137,12 @@ function buildResponse(res: string | object, status: number): Response {
 
     return new Response(JSON.stringify(payload), {
         status: status,
-        headers: { "Content-Type": "application/json" }
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:3000",
+            "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Credentials": "true",
+        },
     });
 }
