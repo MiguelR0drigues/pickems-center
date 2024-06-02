@@ -39,7 +39,7 @@ const Pickems = (): JSX.Element => {
   useEffect(() => {
     fetch(
       `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/getGroupsScores?userUUID=${
-        user?.id || "00000000-0000-0000-0000-000000000000"
+        user?.id || process.env.NEXT_PUBLIC_DEFAULT_USER_ID!
       }`,
       {
         method: "GET",
