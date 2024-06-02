@@ -39,28 +39,34 @@ interface Formatted {
     [key: string]: ResponseObject[];
 }
 
+let allowedOrigins = ["http://localhost:3000", "https://pickems-center.vercel.app/"];
+
 Deno.serve(async (req) => {
+    let origin = req.headers.get("origin");
+
     if (req.method === 'OPTIONS') {
-        return new Response(null, {
-            headers: {
-                "Access-Control-Allow-Origin": "http://localhost:3000",
-                "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                "Access-Control-Allow-Credentials": "true",
-            },
-        });
+        if(allowedOrigins.includes(origin)) {
+            return new Response(null, {
+                headers: {
+                    "Access-Control-Allow-Origin": origin,
+                    "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+                    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                    "Access-Control-Allow-Credentials": "true",
+                },
+            });
+        }
     }
     else if (req.method !== 'GET')
-    return buildResponse("Method not allowed. Please use GET!", 405)
+    return buildResponse(req,"Method not allowed. Please use GET!", 405)
 
     const url = new URL(req.url);
 
     const userUUID = url.searchParams.get('userUUID');
 
     if(!userUUID)
-        return buildResponse("The 'userUUID' parameter is required", 400);
+        return buildResponse(req,"The 'userUUID' parameter is required", 400);
 
-    return await getValues(userUUID);
+    return await getValues(userUUID, req);
 })
 
 /**
@@ -68,12 +74,13 @@ Deno.serve(async (req) => {
  *
  * @param {string} userUUID - The UUID of the user.
  *
+ * @param req
  * @returns {Promise<Response>} - A Promise that resolves with the retrieved values.
  *
  * @throws {Error} - If an error occurred while retrieving the values.
  * @throws {NotFoundError} - If no data found for the given UUID.
  */
-async function getValues(userUUID: string): Promise<Response> {
+async function getValues(userUUID: string, req: Request): Promise<Response> {
     const { data: picksData, error: picksError } = await supabase
         .from<Pick>('Picks')
         .select('*')
@@ -84,50 +91,56 @@ async function getValues(userUUID: string): Promise<Response> {
         .select('*');
 
     if (picksError) {
-        return buildResponse('An error occurred while fetching data from Picks: ' + picksError.message, 500);
+        return buildResponse(req, 'An error occurred while fetching data from Picks: ' + picksError.message, 500);
     }
 
     if (countriesError) {
-        return buildResponse('An error occurred while fetching data from Countries: ' + countriesError.message, 500);
+        return buildResponse(req,'An error occurred while fetching data from Countries: ' + countriesError.message, 500);
     }
 
     if (!picksData || picksData.length == 0) {
-        return buildResponse("No data found for this UUID in Picks", 404);
+        return buildResponse(req,"No data found for this UUID in Picks", 404);
     }
 
     if (!countriesData || countriesData.length == 0) {
-        return buildResponse("No data found in Countries", 404);
+        return buildResponse(req,"No data found in Countries", 404);
     }
 
     const group: Group = picksData.reduce((result: Group, item: Pick) => {
         const country = countriesData.find((country: Country) => country.ID === item.CTR_ID) || { COD: '', NAM: ''};
         const pickWithCountry: PickWithCountry = { ...item, ...country };
         (result[item.GRP] = result[item.GRP] || []).push(pickWithCountry);
+
         return result;
     }, {});
 
     const formatted: Formatted = Object.keys(group).sort().reduce((result: Formatted, key: string) => {
-        result[key] = group[key].map(({CTR_ID, PTS, ORD, COD, NAM}) => ({
-            countryId: CTR_ID,
-            code: COD,
-            name: NAM,
-            points: PTS,
-            order: ORD
-        }));
+        result[key] = group[key]
+            .map(({CTR_ID, PTS, ORD, COD, NAM}) => ({
+                countryId: CTR_ID,
+                code: COD,
+                name: NAM,
+                points: PTS,
+                order: ORD
+            }))
+            .sort((a, b) => a.order - b.order);
+
         return result;
     }, {});
 
-    return buildResponse({groups: formatted}, 200);
+    return buildResponse(req,{groups: formatted}, 200);
 }
 
 /**
  * Builds a response object.
  *
+ * @param req
  * @param {string | object} res - The message or payload to include in the response.
  * @param {number} status - The status code to set in the response.
  * @*/
-function buildResponse(res: string | object, status: number): Response {
+function buildResponse(req: Request, res: string | object, status: number): Response {
     let payload: object;
+    let origin = req.headers.get("Origin") ?? "";
 
     if (typeof res === 'string') {
         payload = { message: res };
@@ -135,14 +148,19 @@ function buildResponse(res: string | object, status: number): Response {
         payload = res;
     }
 
+    let headers: Record<string, string> = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Credentials": "true",
+    };
+
+    if (allowedOrigins.includes(origin)) {
+        headers["Access-Control-Allow-Origin"] = origin;
+    }
+
     return new Response(JSON.stringify(payload), {
         status: status,
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000",
-            "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Credentials": "true",
-        },
+        headers: headers,
     });
 }
