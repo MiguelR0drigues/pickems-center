@@ -1,5 +1,6 @@
 "use client";
 import AuthContent from "@/app/components/auth-content";
+import Caption from "@/app/components/caption";
 import EmptyState from "@/app/components/empty-state";
 import { Group } from "@/app/components/group";
 import PointsInfoPopover from "@/app/components/points-info-popover";
@@ -59,6 +60,7 @@ const Pickems = (): JSX.Element => {
       .then((res) => {
         setShowSkeleton(false);
         setCurrentGroups(res.groups);
+        setThirdPlaces({ thirdsToAdvance: res.thirdsToAdvance });
       })
       .catch(() => {
         setShowSkeleton(false);
@@ -115,8 +117,6 @@ const Pickems = (): JSX.Element => {
 
   const handleSubmit = () => {
     if (!user) return setShowAuthDialog(true);
-
-    setThirdPlaces({ thirdsToAdvance: getThirdCountries(currentGroups) });
     setShowThirdsDialog(true);
   };
 
@@ -165,6 +165,7 @@ const Pickems = (): JSX.Element => {
         </div>
         <PointsInfoPopover />
       </div>
+      <Caption />
       {showSkeleton ? (
         <PickemsSkeleton />
       ) : currentGroups && Object.values(currentGroups).length > 0 ? (
