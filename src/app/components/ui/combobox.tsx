@@ -73,11 +73,9 @@ export default function Combobox() {
                   key={language.value}
                   value={language.value}
                   onSelect={(currentValue: string) => {
-                    setSelectedLanguage(
-                      currentValue === selectedLanguage
-                        ? undefined
-                        : currentValue
-                    );
+                    if (currentValue === selectedLanguage)
+                      return setOpen(false);
+                    setSelectedLanguage(currentValue);
                     setOpen(false);
                   }}
                   className="flex"

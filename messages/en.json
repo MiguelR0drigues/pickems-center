@@ -128,6 +128,11 @@
     "emptyState": {
       "title": "Oops, something went wrong 😅",
       "description": "At the moment we can't show this information."
+    },
+    "caption": {
+      "through": "Advance to playoffs stage",
+      "thirds": "Discuss the 4 best third places",
+      "eliminated": "Eliminated from the tournament"
     }
   },
   "toasts": {

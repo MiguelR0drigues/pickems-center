@@ -128,6 +128,11 @@
     "emptyState": {
       "title": "Oops, algo correu mal 😅",
       "description": "De momento não é possivel mostrar esta informação."
+    },
+    "caption": {
+      "through": "Avança à fase de playoffs",
+      "thirds": "Discute os 4 melhores terceiros lugares",
+      "eliminated": "Elimanada do torneio"
     }
   },
   "toasts": {

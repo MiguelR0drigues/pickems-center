@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
     locales: ["en", "pt"],
   
     // Used when no locale matches
-    defaultLocale: "en",
+    defaultLocale: "pt",
   });
 
   // Return the combined response
