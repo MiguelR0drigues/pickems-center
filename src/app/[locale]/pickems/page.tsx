@@ -14,6 +14,7 @@ import { useToast } from "@/app/components/ui/use-toast";
 import { useUser } from "@/app/contexts/UserContext";
 import { GroupData } from "@/app/types";
 import jwt from "jsonwebtoken";
+import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -28,7 +29,8 @@ const Pickems = (): JSX.Element => {
 
   const [currentGroups, setCurrentGroups] = useState<GroupData>({});
   const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const token = jwt.sign({}, process.env.NEXT_PUBLIC_JWT_SECRET!, {
     algorithm: "HS256",
@@ -49,11 +51,11 @@ const Pickems = (): JSX.Element => {
     )
       .then((res) => res.json())
       .then((res) => {
-        setTimeout(() => setLoading(false), 5000);
+        setShowSkeleton(false);
         setCurrentGroups(res.groups);
       })
       .catch(() => {
-        setLoading(false);
+        setShowSkeleton(false);
         toaster.toast({
           variant: "destructive",
           title: t("toasts.pickems.fetchError.title"),
@@ -72,6 +74,8 @@ const Pickems = (): JSX.Element => {
   const handleSubmit = () => {
     if (!user) return setShowDialog(true);
 
+    setLoading(true);
+
     fetch(
       `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/updateGroupsScores`,
       {
@@ -88,19 +92,21 @@ const Pickems = (): JSX.Element => {
     )
       .then((res) => res.json())
       .then(() => {
+        setLoading(false);
         toaster.toast({
           variant: "default",
           title: t("toasts.pickems.updateSuccess.title"),
           description: t("toasts.pickems.updateSuccess.description"),
         });
       })
-      .catch(() =>
+      .catch(() => {
+        setLoading(false);
         toaster.toast({
           variant: "destructive",
           title: t("toasts.pickems.updateError.title"),
           description: t("toasts.pickems.updateError.description"),
-        })
-      );
+        });
+      });
   };
 
   return (
@@ -111,7 +117,7 @@ const Pickems = (): JSX.Element => {
         </div>
         <PointsInfoPopover />
       </div>
-      {loading ? (
+      {showSkeleton ? (
         <PickemsSkeleton />
       ) : currentGroups && Object.values(currentGroups).length > 0 ? (
         <>
@@ -132,8 +138,13 @@ const Pickems = (): JSX.Element => {
             className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
             variant="secondary"
             onClick={handleSubmit}
+            disabled={loading}
           >
-            {t("PickemsScreen.button")}
+            {loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              t("PickemsScreen.button")
+            )}
           </Button>
           <Dialog
             open={showDialog}
