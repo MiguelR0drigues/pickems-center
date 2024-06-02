@@ -33,13 +33,13 @@ export default function Combobox() {
   const { locale } = useParams<{ locale: "pt" | "en" }>();
   const [open, setOpen] = React.useState(false);
   const [selectedLanguage, setSelectedLanguage] = React.useState<
-    "pt" | "en" | undefined
+    "pt" | "en" | string | undefined
   >(locale);
   const router = useRouter();
 
   React.useEffect(() => {
     router.replace(`/${selectedLanguage}`);
-  }, [router, selectedLanguage]);
+  }, [selectedLanguage]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -71,7 +71,7 @@ export default function Combobox() {
                 <CommandItem
                   key={language.value}
                   value={language.value}
-                  onSelect={(currentValue: "pt" | "en") => {
+                  onSelect={(currentValue: string) => {
                     setSelectedLanguage(
                       currentValue === selectedLanguage
                         ? undefined

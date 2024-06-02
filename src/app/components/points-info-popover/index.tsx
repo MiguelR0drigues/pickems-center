@@ -9,7 +9,7 @@ const PointsInfoPopover = () => {
       <PopoverTrigger>
         <Info />
       </PopoverTrigger>
-      <PopoverContent className="flex flex-col gap-4 text-sm sm:text-l">
+      <PopoverContent className="flex flex-col gap-4 text-sm sm:text-l sm:min-w-[310px]">
         <section className="flex items-center justify-center font-bold">
           <h1>{t("title")}</h1>
         </section>
@@ -23,19 +23,19 @@ const PointsInfoPopover = () => {
 
         <article className="flex flex-col gap-4">
           <h2 className="font-bold">{t("groupStage.title")}</h2>
-          <section className="flex flex-row items-center justify-center gap-3">
+          <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("groupStage.bullet1")}</p>
             <p className="text-green-500">+24</p>
           </section>
-          <section className="flex flex-row items-center justify-center gap-3">
+          <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("groupStage.bullet2")}</p>
             <p className="text-green-500">+5</p>
           </section>
-          <section className="flex flex-row items-center justify-center gap-3">
+          <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("groupStage.bullet3")}</p>
             <p className="text-green-500">+2</p>
           </section>
-          <section className="flex flex-row items-center justify-center gap-3">
+          <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("groupStage.bullet4")}</p>
             <p className="text-red-500">-3</p>
           </section>

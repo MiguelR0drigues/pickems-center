@@ -5,15 +5,15 @@
       "title": "Como funciona?",
       "bullet1": {
         "title": "Prevê & ordena",
-        "description": "Arrasta as equipas para as posições em que acreditas que terminarão a fase de grupos."
+        "description": "Arrasta as equipas para as posições em que acreditas que terminarão a fase de grupos"
       },
       "bullet2": {
         "title": "Acumula pontos",
-        "description": "Sê recompensado pela tua precisão!"
+        "description": "Sê recompensado pela tua precisão"
       },
       "bullet3": {
         "title": "Desafia o Quadro de Líderes",
-        "description": "Acompanha o teu ranking enquanto a ação se desenrola."
+        "description": "Acompanha o teu ranking enquanto o torneio se desenrola"
       },
       "action": "Experimenta já!"
     },
@@ -28,7 +28,7 @@
         "bullet4": "Falha na previsão de avanço:"
       },
       "eliminationStage": {
-        "title": "Fase de Eliminação",
+        "title": "Fase de Playoffs",
         "bullet1": "Prevê o vencedor correto:"
       }
     }
@@ -43,6 +43,8 @@
   "PickemsScreen": {
     "title": "Pickems",
     "group": "Grupo",
+    "thirdsToAdvance": "dos terceiros",
+    "thirdsDialogTitle": "Terceiros que avançam",
     "button": "Guardar"
   },
   "countries": {
@@ -84,6 +86,76 @@
       "eliminationStage": {
         "title": "Fase de Eliminação",
         "bullet1": "Prevê o vencedor correto:"
+      }
+    },
+    "authWithGoogle": {
+      "signup": "Regista-te com o Google",
+      "signin": "Inicia sessão com o Google"
+    },
+    "authForm": {
+      "signin": {
+        "title": "Inicia sessão",
+        "email": "Email",
+        "emailPlaceholder": "exemplo@gmail.com",
+        "password": "Palavra-Passe",
+        "passwordPlaceholder": "Garanta que é segura",
+        "button": "Iniciar sessão"
+      },
+      "signup": {
+        "title": "Regista-te",
+        "username": "Nome de utilizador",
+        "usernamePlaceholder": "Para o quadro de líderes",
+        "name": "O seu nome",
+        "namePlaceholder": "Primeiro e último nome",
+        "email": "Email",
+        "emailPlaceholder": "exemplo@gmail.com",
+        "password": "Palavra-Passe",
+        "passwordPlaceholder": "Garanta que é segura",
+        "button": "Registar"
+      },
+      "errors": {
+        "username": "Nome de utilizador inválido",
+        "name": "Nome inválido",
+        "minLength": "Tem de ter no mínimo 6 caractéres",
+        "capitalLetters": "Tem de ter pelo menos uma letra maiúscula",
+        "noNumbers": "Tem de ter pelo menos um número"
+      }
+    },
+    "logoutPopover": {
+      "user": "Utilizador:",
+      "button": "Terminar sessão"
+    },
+    "emptyState": {
+      "title": "Oops, algo correu mal 😅",
+      "description": "De momento não é possivel mostrar esta informação."
+    }
+  },
+  "toasts": {
+    "logout": {
+      "title": "Sessão encerrada!",
+      "description": "Esperamos voltar a encontrar-te em breve!"
+    },
+    "login": {
+      "success": {
+        "title": "Sessão iniciada!",
+        "description": "Bem vindo {{email}}!"
+      },
+      "error": {
+        "title": "Falha ao iniciar sessão"
+      }
+    },
+    "pickems": {
+      "fetchError": {
+        "title": "Algo correu mal!",
+        "description": "Não conseguimos obter os grupos de momento. Tente novamente mais tarde!"
+      },
+      "updateSuccess": {
+        "title": "Sucesso!",
+        "description": "Os teus pickems foram guardados!"
+      },
+      "updateError": {
+        "title": "Uh oh! Algo correu mal.",
+        "description": "Houve um problema com os teus pickems. Tenta novamente mais tarde!"
       }
     }
   },

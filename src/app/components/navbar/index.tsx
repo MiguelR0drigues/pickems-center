@@ -1,17 +1,22 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
+import { useUser } from "@/app/contexts/UserContext";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import AuthPopover from "../auth-popover";
+import LogoutPopover from "../logout-popover";
 import Combobox from "../ui/combobox";
 
-const Navbar = (): JSX.Element => {
-  const location = usePathname();
-  const isActive = (path: string) => location === path;
-  const { locale } = useParams();
+const Navbar = ({ locale }: { locale: string }): JSX.Element => {
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
+
+  const { user } = useUser();
+
   return (
     <div className="flex flex-row items-center justify-between gap-2 w-max mr-2 ml-2 sm:gap-9 sm:w-11/12">
-      <Link href={`${locale}`}>
-        <Image
+      <Link href={`/${locale}`}>
+        <img
           src="/logo.png"
           alt="Logo"
           width={100}
@@ -19,10 +24,11 @@ const Navbar = (): JSX.Element => {
           className="rounded max-w-12 sm:max-w-max"
         />
       </Link>
+
       <ul className="flex flex-row items-center justify-center gap-4 text-white text-sm sm:text-lg font-bold mt-8 mb-8">
         <li>
           <Link
-            href={`/`}
+            href={`/${locale}`}
             className={`hover:text-green-400 ${
               isActive(`/${locale}`) ? "border-b-2 border-green-500" : ""
             }`}
@@ -54,20 +60,11 @@ const Navbar = (): JSX.Element => {
             Pickems
           </Link>
         </li>
-        {/* <li>
-          <Link
-            href={`/${locale}/login`}
-            className={`hover:text-green-400 ${
-              isActive(`/${locale}/login`)
-                ? "border-b-2 border-green-500"
-                : ""
-            }`}
-          >
-            Login
-          </Link>
-        </li> */}
       </ul>
-      <Combobox key={"languages"} />
+      <div className="flex gap-2 items-center">
+        {user && user.email ? <LogoutPopover /> : <AuthPopover />}
+        <Combobox key={"languages"} />
+      </div>
     </div>
   );
 };

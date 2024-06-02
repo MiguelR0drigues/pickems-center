@@ -2,18 +2,18 @@
   "HomeScreen": {
     "hero": "Welcome to the",
     "howItWorks": {
-      "title": "How it works?",
+      "title": "How does it works?",
       "bullet1": {
         "title": "Predict & Place",
-        "description": "Drag and drop teams into their predicted group stage standings."
+        "description": "Drag and drop teams according to your prediction"
       },
       "bullet2": {
         "title": "Score Big",
-        "description": "Score Big: Get rewarded for your accuracy!"
+        "description": "Get rewarded for your accuracy"
       },
       "bullet3": {
         "title": "Leaderboard Showdown",
-        "description": "Keep track of your ranking as the action unfolds."
+        "description": "Keep track of your ranking as the tournament unfolds"
       },
       "action": "Try it now!"
     },
@@ -28,7 +28,7 @@
         "bullet4": "Failed to predict advancement:"
       },
       "eliminationStage": {
-        "title": "Elimination Stage",
+        "title": "Playoffs Stage",
         "bullet1": "Predicted correct winner:"
       }
     }
@@ -43,6 +43,8 @@
   "PickemsScreen": {
     "title": "Pickems",
     "group": "Group",
+    "thirdsToAdvance": "of third places",
+    "thirdsDialogTitle": "Thirds to go through",
     "button": "Save"
   },
   "countries": {
@@ -84,6 +86,76 @@
       "eliminationStage": {
         "title": "Elimination Stage",
         "bullet1": "Predicted correct winner:"
+      }
+    },
+    "authWithGoogle": {
+      "signup": "Sign up with Google",
+      "signin": "Sign in with Google"
+    },
+    "authForm": {
+      "signin": {
+        "title": "Sign in",
+        "email": "Email",
+        "emailPlaceholder": "example@gmail.com",
+        "password": "Password",
+        "passwordPlaceholder": "Make sure it's safe",
+        "button": "Sign in"
+      },
+      "signup": {
+        "title": "Sign up",
+        "username": "Username",
+        "usernamePlaceholder": "For the leaderboard",
+        "name": "Your name",
+        "namePlaceholder": "First and last name",
+        "email": "Email",
+        "emailPlaceholder": "example@gmail.com",
+        "password": "Password",
+        "passwordPlaceholder": "Make sure it's safe",
+        "button": "Sign up"
+      },
+      "errors": {
+        "username": "Invalid username",
+        "name": "Invalid name",
+        "minLength": "Needs at least 6 characters",
+        "capitalLetters": "Needs at least 1 capital letter",
+        "noNumbers": "Needs at least 1 number"
+      }
+    },
+    "logoutPopover": {
+      "user": "User:",
+      "button": "Logout"
+    },
+    "emptyState": {
+      "title": "Oops, something went wrong 😅",
+      "description": "At the moment we can't show this information."
+    }
+  },
+  "toasts": {
+    "logout": {
+      "title": "Logged out successfully!",
+      "description": "Looking forward to see you again!"
+    },
+    "login": {
+      "success": {
+        "title": "Logged in successfully!",
+        "description": "Welcome {{email}}!"
+      },
+      "error": {
+        "title": "Failed to login"
+      }
+    },
+    "pickems": {
+      "fetchError": {
+        "title": "Something went wrong!",
+        "description": "We can't provide you with the groups at this time. Try again later!"
+      },
+      "updateSuccess": {
+        "title": "Success!",
+        "description": "Your pickems were successfully saved!"
+      },
+      "updateError": {
+        "title": "Uh oh! Something went wrong.",
+        "description": "There was a problem with your pickems. Try again later!"
       }
     }
   },

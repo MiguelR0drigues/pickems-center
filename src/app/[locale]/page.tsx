@@ -1,14 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import Link from "next/link";
 
-export default function Page({ params }): JSX.Element {
+export default function Page({
+  params,
+}: {
+  params: { locale: string };
+}): JSX.Element {
   const t = useTranslations("HomeScreen");
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center text-white">
       {/* Hero Section */}
       <div className="text-center mb-8 relative w-full">
-        <Image
+        <img
           src="/banner.jpg"
           alt="Soccer Action"
           width={100}
@@ -64,12 +69,11 @@ export default function Page({ params }): JSX.Element {
             </Link>
           </div>
         </div>
-        <Image
+        <img
           src="/phone.png"
           alt="Soccer Action"
           width={100}
           height={100}
-          loading="lazy"
           className="w-32 h-60 rounded-lg"
           style={{ maxWidth: "200px" }}
         />
@@ -91,19 +95,19 @@ export default function Page({ params }): JSX.Element {
           </h2>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet1")}</p>
-            <p className="text-green-500">+24 {t("points.points")}</p>
+            <p className="text-green-500 text-end">+24 {t("points.points")}</p>
           </section>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet2")}</p>
-            <p className="text-green-500">+5 {t("points.points")}</p>
+            <p className="text-green-500 text-end">+5 {t("points.points")}</p>
           </section>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet3")}</p>
-            <p className="text-green-500">+2 {t("points.points")}</p>
+            <p className="text-green-500 text-end">+2 {t("points.points")}</p>
           </section>
           <section className="flex flex-row items-center justify-between gap-3">
             <p>{t("points.groupStage.bullet4")}</p>
-            <p className="text-red-500">-3 {t("points.points")}</p>
+            <p className="text-red-500 text-end">-3 {t("points.points")}</p>
           </section>
         </article>
 
