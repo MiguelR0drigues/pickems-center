@@ -24,7 +24,7 @@ export default function Loading() {
     return () => {
       handleComplete();
     };
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return (
     <div className={`fullscreen-loader ${loading ? "" : "hidden"}`}>

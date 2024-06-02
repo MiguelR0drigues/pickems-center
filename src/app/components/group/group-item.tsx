@@ -2,8 +2,8 @@ import type { Identifier, XYCoord } from "dnd-core";
 import type { FC } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import GrabIcon from "../icons/grab/grab-icon";
 import { Card, CardHeader, CardTitle } from "../ui/card";
-import GrabIcon from "./grab-icon";
 
 const ItemTypes = {
   CARD: "card",

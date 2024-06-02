@@ -101,6 +101,7 @@
       },
       "signup": {
         "title": "Regista-te",
+        "username": "Nome de utilizador",
         "name": "O seu nome",
         "namePlaceholder": "Primeiro e último nome",
         "email": "Email",
@@ -108,6 +109,43 @@
         "password": "Palavra-Passe",
         "passwordPlaceholder": "Garanta que é segura",
         "button": "Registar"
+      }
+    },
+    "logoutPopover": {
+      "user": "Utilizador:",
+      "button": "Terminar sessão"
+    },
+    "emptyState": {
+      "title": "Oops, algo correu mal 😅",
+      "description": "De momento não é possivel mostrar esta informação."
+    }
+  },
+  "toasts": {
+    "logout": {
+      "title": "Sessão encerrada!",
+      "description": "Esperamos voltar a encontrar-te em breve!"
+    },
+    "login": {
+      "success": {
+        "title": "Sessão iniciada!",
+        "description": "Bem vindo {{email}}!"
+      },
+      "error": {
+        "title": "Falha ao iniciar sessão"
+      }
+    },
+    "pickems": {
+      "fetchError": {
+        "title": "Algo correu mal!",
+        "description": "Não conseguimos obter os grupos de momento. Tente novamente mais tarde!"
+      },
+      "updateSuccess": {
+        "title": "Sucesso!",
+        "description": "Os teus pickems foram guardados!"
+      },
+      "updateError": {
+        "title": "Uh oh! Algo correu mal.",
+        "description": "Houve um problema com os teus pickems. Tenta novamente mais tarde!"
       }
     }
   },
