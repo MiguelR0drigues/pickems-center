@@ -160,7 +160,9 @@ export const GroupItemComponent: FC<CardProps> = ({
           </div>
         </div>
         <CardTitle
-          className={`text-xl ${isThirds ? "sm:text-xl" : "sm:text-2xl"}`}
+          className={`text-xl ${
+            isThirds ? "sm:text-xl" : "sm:text-2xl"
+          } text-center`}
         >
           {" "}
           {text}
