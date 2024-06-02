@@ -5,15 +5,15 @@
       "title": "Como funciona?",
       "bullet1": {
         "title": "Prevê & ordena",
-        "description": "Arrasta as equipas para as posições em que acreditas que terminarão a fase de grupos."
+        "description": "Arrasta as equipas para as posições em que acreditas que terminarão a fase de grupos"
       },
       "bullet2": {
         "title": "Acumula pontos",
-        "description": "Sê recompensado pela tua precisão!"
+        "description": "Sê recompensado pela tua precisão"
       },
       "bullet3": {
         "title": "Desafia o Quadro de Líderes",
-        "description": "Acompanha o teu ranking enquanto a ação se desenrola."
+        "description": "Acompanha o teu ranking enquanto o torneio se desenrola"
       },
       "action": "Experimenta já!"
     },
@@ -28,7 +28,7 @@
         "bullet4": "Falha na previsão de avanço:"
       },
       "eliminationStage": {
-        "title": "Fase de Eliminação",
+        "title": "Fase de Playoffs",
         "bullet1": "Prevê o vencedor correto:"
       }
     }

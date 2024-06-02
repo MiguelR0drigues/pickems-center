@@ -5,15 +5,15 @@
       "title": "How does it works?",
       "bullet1": {
         "title": "Predict & Place",
-        "description": "Drag and drop teams into their predicted group stage standings."
+        "description": "Drag and drop teams according to your prediction"
       },
       "bullet2": {
         "title": "Score Big",
-        "description": "Score Big: Get rewarded for your accuracy!"
+        "description": "Get rewarded for your accuracy"
       },
       "bullet3": {
         "title": "Leaderboard Showdown",
-        "description": "Keep track of your ranking as the action unfolds."
+        "description": "Keep track of your ranking as the tournament unfolds"
       },
       "action": "Try it now!"
     },
@@ -28,7 +28,7 @@
         "bullet4": "Failed to predict advancement:"
       },
       "eliminationStage": {
-        "title": "Elimination Stage",
+        "title": "Playoffs Stage",
         "bullet1": "Predicted correct winner:"
       }
     }
