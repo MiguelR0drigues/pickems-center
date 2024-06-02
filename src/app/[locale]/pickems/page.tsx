@@ -122,7 +122,6 @@ const Pickems = (): JSX.Element => {
 
   const handleSubmit = () => {
     if (!user) return setShowAuthDialog(true);
-    console.log(thirdPlaces);
     setShowThirdsDialog(true);
   };
 
@@ -215,7 +214,7 @@ const Pickems = (): JSX.Element => {
             open={showThirdsDialog}
             onOpenChange={() => setShowThirdsDialog(false)}
           >
-            <DialogContent className="sm:max-w-[425px] sm:max-h-[550px]">
+            <DialogContent className="sm:max-w-[425px] sm:max-h-[550px] flex flex-col items-center">
               <DialogHeader>
                 <DialogTitle>
                   {t("PickemsScreen.thirdsDialogTitle")}
