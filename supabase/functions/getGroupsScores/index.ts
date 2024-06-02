@@ -1,7 +1,10 @@
+// @ts-ignore
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
+// @ts-ignore
 const supabase = createClient(
+    // @ts-ignore
     Deno.env.get("SUPABASE_URL"),
+    // @ts-ignore
     Deno.env.get("SUPABASE_ANON_KEY"));
 
 interface Country {
@@ -40,7 +43,7 @@ interface Formatted {
 }
 
 let allowedOrigins = ["http://localhost:3000", "https://pickems-center.vercel.app/"];
-
+// @ts-ignore
 Deno.serve(async (req) => {
     let origin = req.headers.get("origin");
 
