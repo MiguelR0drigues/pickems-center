@@ -56,7 +56,7 @@ export const Group: FC<{
   return (
     <div
       id={id}
-      className={`group grid min-w-[270px] ${
+      className={`group grid max-w-[270px] min-w-[270px] ${
         isThirds ? "sm:min-w-[350px]" : "sm:min-w-[400px]"
       }`}
     >
