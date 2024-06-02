@@ -3,6 +3,7 @@ import AuthContent from "@/app/components/auth-content";
 import EmptyState from "@/app/components/empty-state";
 import { Group } from "@/app/components/group";
 import PointsInfoPopover from "@/app/components/points-info-popover";
+import PickemsSkeleton from "@/app/components/skeletons/pickems";
 import { Button } from "@/app/components/ui/button";
 import {
   Dialog,
@@ -27,16 +28,17 @@ const Pickems = (): JSX.Element => {
 
   const [currentGroups, setCurrentGroups] = useState<GroupData>({});
   const [showDialog, setShowDialog] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const token = jwt.sign({}, process.env.NEXT_PUBLIC_JWT_SECRET!, {
     algorithm: "HS256",
   });
 
   useEffect(() => {
-    if (!user) return;
-
     fetch(
-      `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/getGroupsScores?userUUID=${user.id}`,
+      `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/getGroupsScores?userUUID=${
+        user?.id || "00000000-0000-0000-0000-000000000000"
+      }`,
       {
         method: "GET",
         headers: {
@@ -46,14 +48,18 @@ const Pickems = (): JSX.Element => {
       }
     )
       .then((res) => res.json())
-      .then((res) => setCurrentGroups(res.groups))
-      .catch(() =>
+      .then((res) => {
+        setTimeout(() => setLoading(false), 5000);
+        setCurrentGroups(res.groups);
+      })
+      .catch(() => {
+        setLoading(false);
         toaster.toast({
           variant: "destructive",
           title: t("toasts.pickems.fetchError.title"),
           description: t("toasts.pickems.fetchError.description"),
-        })
-      );
+        });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -98,14 +104,16 @@ const Pickems = (): JSX.Element => {
   };
 
   return (
-    <div className="flex flex-col gap-10 items-center w-full">
+    <div className="flex flex-col gap-10 items-center w-full h-100%">
       <div className="flex flex-row gap-6 mt-3 sm:mt-0">
         <div className="text-6xl text-green-500">
           {t("PickemsScreen.title")}
         </div>
         <PointsInfoPopover />
       </div>
-      {currentGroups && Object.values(currentGroups).length > 0 ? (
+      {loading ? (
+        <PickemsSkeleton />
+      ) : currentGroups && Object.values(currentGroups).length > 0 ? (
         <>
           <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
             <div className="flex flex-wrap flex-row gap-8 justify-center items-center w-full overflow-hidden">
