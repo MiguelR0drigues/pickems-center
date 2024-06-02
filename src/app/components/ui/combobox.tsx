@@ -39,6 +39,7 @@ export default function Combobox() {
 
   React.useEffect(() => {
     router.replace(`/${selectedLanguage}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLanguage]);
 
   return (
