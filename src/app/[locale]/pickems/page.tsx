@@ -44,6 +44,7 @@ const Pickems = (): JSX.Element => {
   });
 
   useEffect(() => {
+    if (!user) setShowAuthDialog(true);
     fetch(
       `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/getGroupsScores?userUUID=${
         user?.id || defaultUser
