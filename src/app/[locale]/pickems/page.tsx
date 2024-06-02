@@ -28,6 +28,9 @@ const Pickems = (): JSX.Element => {
   const toaster = useToast();
   const t = useTranslations();
 
+  const defaultUser = process.env.NEXT_PUBLIC_DEFAULT_USER_ID;
+  const jwtToken = process.env.NEXT_PUBLIC_JWT_SECRET;
+
   const [currentGroups, setCurrentGroups] = useState<GroupData>({});
   const [showAuthDialog, setShowAuthDialog] = useState<boolean>(false);
   const [showThirdsDialog, setShowThirdsDialog] = useState<boolean>(false);
@@ -35,14 +38,14 @@ const Pickems = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
   const [thirdPlaces, setThirdPlaces] = useState<GroupData>({});
 
-  const token = jwt.sign({}, process.env.NEXT_PUBLIC_JWT_SECRET!, {
+  const token = jwt.sign({}, jwtToken!, {
     algorithm: "HS256",
   });
 
   useEffect(() => {
     fetch(
       `https://zpafftlifxzqrzuafugi.supabase.co/functions/v1/getGroupsScores?userUUID=${
-        user?.id || process.env.NEXT_PUBLIC_DEFAULT_USER_ID!
+        user?.id || defaultUser
       }`,
       {
         method: "GET",
