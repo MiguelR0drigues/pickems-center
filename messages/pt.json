@@ -22,10 +22,10 @@
       "points": "pontos",
       "groupStage": {
         "title": "Fase de Grupos",
-        "bullet1": "Prevê o avanço e a classificação para o grupo inteiro:",
-        "bullet2": "Prevê o avanço e a classificação:",
-        "bullet3": "Prevê o avanço, mas não a classificação:",
-        "bullet4": "Falha na previsão de avanço:"
+        "bullet1": "Prevê a passagem e a classificação final para o grupo inteiro:",
+        "bullet2": "Prevê a passagem e a classificação final:",
+        "bullet3": "Prevê a passagem, mas não a classificação final:",
+        "bullet4": "Falha na previsão de passagem:"
       },
       "eliminationStage": {
         "title": "Fase de Playoffs",
@@ -78,10 +78,10 @@
       "title": "Sistema de Pontuação",
       "groupStage": {
         "title": "Fase de Grupos",
-        "bullet1": "Prevê o avanço e a classificação para o grupo inteiro:",
-        "bullet2": "Prevê o avanço e a classificação:",
-        "bullet3": "Prevê o avanço, mas não a classificação:",
-        "bullet4": "Falha na previsão de avanço:"
+        "bullet1": "Prevê a passagem e a classificação final para o grupo inteiro:",
+        "bullet2": "Prevê a passagem e a classificação final:",
+        "bullet3": "Prevê a passagem, mas não a classificação final:",
+        "bullet4": "Falha na previsão de passagem:"
       },
       "eliminationStage": {
         "title": "Fase de Eliminação",
