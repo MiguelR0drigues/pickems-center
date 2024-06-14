@@ -72,7 +72,14 @@ export const Group: FC<{
           </CardTitle>
         </CardHeader>
       </Card>
-      <div id={`group-dnd-${groupName}`} style={{ cursor: "grab" }}>
+      <div
+        id={`group-dnd-${groupName}`}
+        className="brightness-50"
+        style={{
+          // cursor: "grab"
+          cursor: "not-allowed",
+        }}
+      >
         {cards.map((card, i) => renderCard(card, i))}
       </div>
     </div>

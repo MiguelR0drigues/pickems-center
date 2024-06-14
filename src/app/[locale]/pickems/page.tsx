@@ -194,7 +194,7 @@ const Pickems = (): JSX.Element => {
             className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
             variant="secondary"
             onClick={handleSubmit}
-            disabled={loading}
+            disabled={true}
           >
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

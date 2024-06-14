@@ -3,7 +3,6 @@ import { ChevronUp, Plus } from "lucide-react";
 import type { FC, ReactNode } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import GrabIcon from "../icons/grab/grab-icon";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 
 const ItemTypes = {
@@ -132,13 +131,13 @@ export const GroupItemComponent: FC<CardProps> = ({
   });
 
   const opacity = isDragging ? 0 : 1;
-  drag(drop(ref));
+  // drag(drop(ref));
   return (
     <Card
       ref={ref}
       style={{ opacity }}
       data-handler-id={handlerId}
-      className={`country h-16 flex justify-between items-center ${
+      className={`country h-16 flex justify-between items-center select-none ${
         isThirds ? "sm:h-14" : "sm:h-24"
       }`}
     >
@@ -167,7 +166,7 @@ export const GroupItemComponent: FC<CardProps> = ({
           {" "}
           {text}
         </CardTitle>
-        <GrabIcon />
+        {/* <GrabIcon /> */}
       </CardHeader>
     </Card>
   );
