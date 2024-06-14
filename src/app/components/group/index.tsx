@@ -65,7 +65,7 @@ export const Group: FC<{
           isThirds ? "h-10" : "h-14"
         } flex justify-between items-center`}
       >
-        <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-center items-center">
+        <CardHeader className="border-gray-200 dark:border-gray-800 flex flex-row w-full justify-center items-center select-none">
           <CardTitle className={isThirds ? "text-xl" : ""}>
             {t("PickemsScreen.group")}{" "}
             {isThirds ? t("PickemsScreen." + groupName) : groupName}

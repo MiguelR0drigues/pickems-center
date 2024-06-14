@@ -191,7 +191,7 @@ const Pickems = (): JSX.Element => {
             </div>
           </DndProvider>
           <Button
-            className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+            className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950 cursor-not-allowed select-none"
             variant="secondary"
             onClick={handleSubmit}
             disabled={true}
