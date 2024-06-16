@@ -38,6 +38,10 @@
     "table": {
       "name": "Nome",
       "points": "Pontos"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Seguinte"
     }
   },
   "PickemsScreen": {
