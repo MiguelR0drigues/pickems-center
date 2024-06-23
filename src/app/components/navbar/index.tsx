@@ -57,7 +57,7 @@ const Navbar = ({ locale }: { locale: string }): JSX.Element => {
                 : ""
             }`}
           >
-            My Pickems
+            Pickems
           </Link>
         </li>
       </ul>

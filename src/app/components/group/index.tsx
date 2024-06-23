@@ -6,17 +6,21 @@ import { useCallback, useState } from "react";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { GroupItemComponent } from "./group-item";
 
-export interface ContainerState {
-  cards: GroupItem[];
-}
-
 export const Group: FC<{
   id: string;
   groupName: string;
   groupsData: GroupItem[];
   updateCurrentGroups: (newGroups: GroupData) => void;
-  isThirds: boolean;
-}> = ({ id, groupsData, groupName, updateCurrentGroups, isThirds = false }) => {
+  isThirds?: boolean;
+  isLeaderboardSheet?: boolean;
+}> = ({
+  id,
+  groupsData,
+  groupName,
+  updateCurrentGroups,
+  isThirds = false,
+  isLeaderboardSheet = false,
+}) => {
   const [cards, setCards] = useState<GroupItem[]>(groupsData);
   const t = useTranslations();
 
@@ -56,8 +60,8 @@ export const Group: FC<{
   return (
     <div
       id={id}
-      className={`group grid max-w-[270px] min-w-[270px] ${
-        isThirds ? "sm:min-w-[350px]" : "sm:min-w-[400px]"
+      className={`group grid max-w-[270px] ${
+        isThirds || isLeaderboardSheet ? "min-w-[350px]" : "min-w-[400px]"
       }`}
     >
       <Card
@@ -77,7 +81,7 @@ export const Group: FC<{
         className="brightness-50"
         style={{
           // cursor: "grab"
-          cursor: "not-allowed",
+          cursor: isLeaderboardSheet ? "default" : "not-allowed",
         }}
       >
         {cards.map((card, i) => renderCard(card, i))}

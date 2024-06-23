@@ -185,7 +185,6 @@ const Pickems = (): JSX.Element => {
                   groupName={group[0]}
                   groupsData={group[1]}
                   updateCurrentGroups={updateCurrentGroups}
-                  isThirds={false}
                 />
               ))}
             </div>
@@ -194,7 +193,7 @@ const Pickems = (): JSX.Element => {
             className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950 cursor-not-allowed select-none"
             variant="secondary"
             onClick={handleSubmit}
-            disabled={true}
+            disabled
           >
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -227,7 +226,7 @@ const Pickems = (): JSX.Element => {
                   groupName={"thirdsToAdvance"}
                   groupsData={thirdPlaces.thirdsToAdvance}
                   updateCurrentGroups={updateThirdsGroups}
-                  isThirds={true}
+                  isThirds
                 />
               </DndProvider>
               <Button
