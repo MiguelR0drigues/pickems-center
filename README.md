@@ -15,7 +15,7 @@ Users can access the platform and make predictions by dragging and dropping team
 - ✔ Leaderboard page to track users' rankings and standings.
 - ✔ Interactive and engaging gameplay experience.
 - ✔ Authentication
-- ❌ Ability to view and compare other users' predictions with your own.
+- ✔ Ability to view and compare other users' predictions with your own.
 
 ## Technologies Used
 

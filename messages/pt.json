@@ -38,6 +38,14 @@
     "table": {
       "name": "Nome",
       "points": "Pontos"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Seguinte"
+    },
+    "sheet": {
+      "title": "Pickems de {username}",
+      "description": "Estas são as picks de {username} para todas as fases."
     }
   },
   "PickemsScreen": {
