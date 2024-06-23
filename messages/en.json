@@ -42,6 +42,10 @@
     "pagination": {
       "previous": "Previous",
       "next": "Next"
+    },
+    "sheet": {
+      "title": "{{username}}'s Pickems",
+      "description": "These are {{username}} picks for every stage."
     }
   },
   "PickemsScreen": {
