@@ -6,6 +6,7 @@ import { Group } from "@/app/components/group";
 import PointsInfoPopover from "@/app/components/points-info-popover";
 import PickemsSkeleton from "@/app/components/skeletons/pickems";
 import { Button } from "@/app/components/ui/button";
+import { Card } from "@/app/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -44,7 +45,25 @@ const Pickems = (): JSX.Element => {
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
   const [thirdPlaces, setThirdPlaces] = useState<GroupData>({});
+
+  // groups || playoffs
   const [tabValue, setTabValue] = useState<string>("groups");
+
+  // 16 || 8 || 4 || 2
+  const [playoffsTabs, setPlayoffsTabs] = useState<string>("16");
+
+  const [teamsToGoThrough, setTeamsToGoThrough] = useState({
+    16: {},
+    8: {},
+    4: {},
+    2: {},
+  });
+  const [runnerUps, setRunnerUps] = useState({
+    16: {},
+    8: {},
+    4: {},
+    2: {},
+  });
 
   const token = jwt.sign({}, jwtToken!, {
     algorithm: "HS256",
@@ -133,6 +152,57 @@ const Pickems = (): JSX.Element => {
     setShowThirdsDialog(true);
   };
 
+  const handlePlayoffGameClick = () => {
+    const winnersRound16 = teamsToGoThrough[16];
+    const winnersRound8 = teamsToGoThrough[8];
+    const winnersRound4 = teamsToGoThrough[4];
+
+    const runnersFor8 = Object.entries(winnersRound16).map(
+      ([teamCode, team]) => {
+        const game = Math.floor(((team as any).game - 1) / 2) + 1;
+        return { [teamCode]: { ...(team as any), game: game } };
+      }
+    );
+
+    const runnersFor4 = Object.entries(winnersRound8).map(
+      ([teamCode, team]) => {
+        const game = Math.floor(((team as any).game - 1) / 2) + 1;
+        return { [teamCode]: { ...(team as any), game: game } };
+      }
+    );
+
+    console.log(winnersRound4);
+
+    const runnersForSemis = Object.entries(winnersRound4).map(
+      ([teamCode, team]) => {
+        const game = Math.floor(((team as any).game - 1) / 2) + 1;
+        return { [teamCode]: { ...(team as any), game: game } };
+      }
+    );
+
+    console.log(runnersForSemis);
+
+    const flattened8 = Object.values(runnersFor8).reduce((acc, curr) => {
+      return { ...acc, ...curr };
+    }, {});
+
+    const flattened4 = Object.values(runnersFor4).reduce((acc, curr) => {
+      return { ...acc, ...curr };
+    }, {});
+
+    const flattened2 = Object.values(runnersForSemis).reduce((acc, curr) => {
+      return { ...acc, ...curr };
+    }, {});
+
+    setRunnerUps((prev: any) => {
+      return { ...prev, 8: flattened8, 4: flattened4, 2: flattened2 };
+    });
+
+    setTeamsToGoThrough((prev: any) => {
+      return { ...prev, 8: flattened8, 4: flattened4, 2: flattened2 };
+    });
+  };
+
   const handleComplete = () => {
     setShowThirdsDialog(false);
     setLoading(true);
@@ -169,6 +239,78 @@ const Pickems = (): JSX.Element => {
         });
       });
   };
+
+  const updateTeamsToGoThrough = (team: Team, round: number) => {
+    setTeamsToGoThrough((prev: any) => {
+      // Check if there is already a team with the same game
+      const hasOpponent = Object.values(prev[round] || {}).find(
+        //@ts-ignore
+        (t: Team) => t.game === team.game && t.name !== team.name
+      );
+
+      console.log("Selected team> ", team);
+      console.log("Current Round> ", round);
+      console.log("Opponent> ", hasOpponent);
+
+      if (hasOpponent) {
+        // Remove the previous team with the same game, if exists
+        const updated = {
+          ...prev,
+          [round]: Object.fromEntries(
+            Object.entries(prev[round]).filter(
+              //@ts-ignore
+              ([_, t]: [string, Team]) => t.game !== team.game
+            )
+          ),
+        };
+
+        // Add the new team to the updated state
+        updated[round][team.code] = team;
+
+        // Sort the updated round state by game number
+        updated[round] = Object.fromEntries(
+          Object.entries(updated[round]).sort(
+            //@ts-ignore
+            ([, a]: [string, Team], [, b]: [string, Team]) => a.game - b.game
+          )
+        );
+        return updated;
+      }
+
+      // No team with the same game found, simply update the state
+      const updated = {
+        ...prev,
+        [round]: {
+          ...prev[round],
+          [team.code]: team,
+        },
+      };
+
+      // Sort the updated round state by game number
+      updated[round] = Object.fromEntries(
+        Object.entries(updated[round]).sort(
+          //@ts-ignore
+          ([, a]: [string, Team], [, b]: [string, Team]) => a.game - b.game
+        )
+      );
+      return updated;
+    });
+  };
+
+  // Function to get teams for a specific round and game
+  const getTeamsForRoundAndGame = (
+    round: number,
+    game1: number,
+    game2: number
+  ): Team[] => {
+    const roundTeams = (runnerUps as any)[round];
+    const teams: any = Object.values(roundTeams).filter(
+      (team: any) => team.game === game1 || team.game === game2
+    );
+    return [teams[0], teams[1]];
+  };
+  console.log("RUNNER UPS -> ", runnerUps);
+  console.log("TEAMS TO GO THROUGH TO THE NEXT STAGE -> ", teamsToGoThrough);
 
   return (
     <div className="flex flex-col gap-10 items-center w-full h-100%">
@@ -274,10 +416,343 @@ const Pickems = (): JSX.Element => {
             <EmptyState />
           )}
         </TabsContent>
-        <TabsContent value="playoffs"></TabsContent>
+        <TabsContent value="playoffs" className="w-full">
+          <Tabs
+            value={playoffsTabs}
+            onValueChange={setPlayoffsTabs}
+            className="w-full flex flex-col items-center justify-center"
+          >
+            <TabsList className="grid w-full sm:w-1/2 grid-cols-4 mb-4">
+              <TabsTrigger
+                value="16"
+                className="data-[state=active]:bg-green-500 data-[state=active]:text-black text-white"
+              >
+                {t("PickemsScreen.tabs.16")}
+              </TabsTrigger>
+              <TabsTrigger
+                value="8"
+                className="data-[state=active]:bg-green-500 data-[state=active]:text-black text-white"
+              >
+                {t("PickemsScreen.tabs.8")}
+              </TabsTrigger>
+              <TabsTrigger
+                value="4"
+                className="data-[state=active]:bg-green-500 data-[state=active]:text-black text-white"
+              >
+                {t("PickemsScreen.tabs.4")}
+              </TabsTrigger>
+              <TabsTrigger
+                value="2"
+                className="data-[state=active]:bg-green-500 data-[state=active]:text-black text-white"
+              >
+                {t("PickemsScreen.tabs.2")}
+              </TabsTrigger>
+            </TabsList>
+            <p className="font-bold text-2xl text-yellow-500">
+              🚧 {t("errors.featureNotFinished")} 🚧
+            </p>
+            <TabsContent
+              value="16"
+              className="w-full flex flex-col items-center justify-center gap-4"
+            >
+              <>
+                <div className=" flex flex-col sm:flex-row gap-8 ">
+                  <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-3">
+                    <PlayoffCard
+                      key={"round16-game1"}
+                      team1={{ game: 1, code: "es", name: "spain" }}
+                      team2={{ game: 1, code: "ge", name: "georgia" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                    <PlayoffCard
+                      key={"round16-game2"}
+                      team1={{ game: 2, code: "de", name: "germany" }}
+                      team2={{ game: 2, code: "dk", name: "denmark" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                    <PlayoffCard
+                      key={"round16-game3"}
+                      team1={{ game: 3, code: "pt", name: "portugal" }}
+                      team2={{ game: 3, code: "si", name: "slovenia" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                    <PlayoffCard
+                      key={"round16-game4"}
+                      team1={{ game: 4, code: "fr", name: "france" }}
+                      team2={{ game: 4, code: "be", name: "belgium" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                  </div>
+                  <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-3">
+                    <PlayoffCard
+                      key={"round16-game5"}
+                      team1={{ game: 5, code: "ro", name: "romania" }}
+                      team2={{ game: 5, code: "nl", name: "netherlands" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                    <PlayoffCard
+                      key={"round16-game6"}
+                      team1={{ game: 6, code: "at", name: "austria" }}
+                      team2={{ game: 6, code: "tr", name: "turkey" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                    <PlayoffCard
+                      key={"round16-game7"}
+                      team1={{ game: 7, code: "gb-eng", name: "england" }}
+                      team2={{ game: 7, code: "sk", name: "slovakia" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                    <PlayoffCard
+                      key={"round16-game8"}
+                      team1={{ game: 8, code: "ch", name: "switzerland" }}
+                      team2={{ game: 8, code: "it", name: "italy" }}
+                      stateToUpdate={teamsToGoThrough[16]}
+                      updateState={updateTeamsToGoThrough}
+                      round={16}
+                    />
+                  </div>
+                </div>
+                <Button
+                  className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                  variant="secondary"
+                  onClick={() => {
+                    setPlayoffsTabs((prev) => `${Number(prev) / 2}`);
+                    handlePlayoffGameClick();
+                  }}
+                >
+                  Confirm
+                </Button>
+              </>
+            </TabsContent>
+            <TabsContent
+              value="8"
+              className="w-full flex flex-col items-center justify-center gap-4"
+            >
+              {Object.entries(runnerUps[8]).length > 0 ? (
+                <>
+                  <div className=" flex flex-col sm:flex-row gap-8 ">
+                    <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-3">
+                      <PlayoffCard
+                        key={"round8-game1"}
+                        team1={getTeamsForRoundAndGame(8, 1, 1)[0]}
+                        team2={getTeamsForRoundAndGame(8, 1, 1)[1]}
+                        stateToUpdate={runnerUps[8]}
+                        updateState={updateTeamsToGoThrough}
+                        round={8}
+                      />
+                      <PlayoffCard
+                        key={"round8-game2"}
+                        team1={getTeamsForRoundAndGame(8, 2, 2)[0]}
+                        team2={getTeamsForRoundAndGame(8, 2, 2)[1]}
+                        stateToUpdate={runnerUps[8]}
+                        updateState={updateTeamsToGoThrough}
+                        round={8}
+                      />
+                    </div>
+                    <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-3">
+                      <PlayoffCard
+                        key={"round8-game3"}
+                        team1={getTeamsForRoundAndGame(8, 3, 3)[0]}
+                        team2={getTeamsForRoundAndGame(8, 3, 3)[1]}
+                        stateToUpdate={runnerUps[8]}
+                        updateState={updateTeamsToGoThrough}
+                        round={8}
+                      />
+                      <PlayoffCard
+                        key={"round8-game4"}
+                        team1={getTeamsForRoundAndGame(8, 4, 4)[0]}
+                        team2={getTeamsForRoundAndGame(8, 4, 4)[1]}
+                        stateToUpdate={runnerUps[8]}
+                        updateState={updateTeamsToGoThrough}
+                        round={8}
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                    variant="secondary"
+                    onClick={() => {
+                      setPlayoffsTabs((prev) => `${Number(prev) / 2}`);
+                      handlePlayoffGameClick();
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                </>
+              ) : null}
+            </TabsContent>
+            <TabsContent
+              value="4"
+              className="w-full flex flex-col items-center justify-center gap-4"
+            >
+              {Object.entries(runnerUps[4]).length > 0 ? (
+                <>
+                  <div className=" flex flex-col sm:flex-row gap-8 ">
+                    <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-3">
+                      <PlayoffCard
+                        key={"round4-game1"}
+                        team1={getTeamsForRoundAndGame(4, 1, 1)[0]}
+                        team2={getTeamsForRoundAndGame(4, 1, 1)[1]}
+                        stateToUpdate={runnerUps[4]}
+                        updateState={updateTeamsToGoThrough}
+                        round={4}
+                      />
+                    </div>
+                    <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-3">
+                      <PlayoffCard
+                        key={"round4-game3"}
+                        team1={getTeamsForRoundAndGame(4, 2, 2)[0]}
+                        team2={getTeamsForRoundAndGame(4, 2, 2)[1]}
+                        stateToUpdate={runnerUps[4]}
+                        updateState={updateTeamsToGoThrough}
+                        round={4}
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                    variant="secondary"
+                    onClick={() => {
+                      setPlayoffsTabs((prev) => `${Number(prev) / 2}`);
+                      handlePlayoffGameClick();
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                </>
+              ) : null}
+            </TabsContent>
+            <TabsContent
+              value="2"
+              className="w-full flex flex-col items-center justify-center gap-4"
+            >
+              {Object.entries(runnerUps[4]).length > 0 ? (
+                <>
+                  <PlayoffCard
+                    key={"round2-game1"}
+                    team1={getTeamsForRoundAndGame(2, 1, 1)[0]}
+                    team2={getTeamsForRoundAndGame(2, 1, 1)[1]}
+                    stateToUpdate={runnerUps[2]}
+                    updateState={updateTeamsToGoThrough}
+                    round={2}
+                  />
+                  <Button
+                    className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                    variant="secondary"
+                    onClick={() => {
+                      toaster.toast({
+                        variant: "destructive",
+                        title: t("toasts.pickems.updatePlayoffsError.title"),
+                        description: t(
+                          "toasts.pickems.updatePlayoffsError.description"
+                        ),
+                      });
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                </>
+              ) : null}
+            </TabsContent>
+          </Tabs>
+        </TabsContent>
       </Tabs>
     </div>
   );
 };
 
 export default Pickems;
+
+type Team = {
+  game: number;
+  code: string;
+  name: string;
+};
+type PlayoffCardProps = {
+  team1: Team;
+  team2: Team;
+  stateToUpdate: any;
+  round: number;
+  updateState: (team: Team, round: number) => void;
+};
+
+const PlayoffCard = (props: PlayoffCardProps) => {
+  const t = useTranslations("countries");
+  const [winner, setWinner] = useState<Team>();
+
+  const handleClick = (team: Team) => {
+    setWinner(team);
+    props.updateState(team, props.round);
+  };
+
+  useEffect(() => {
+    // This effect ensures that the local state is in sync with the global state
+    if (props.stateToUpdate[props.team1.code]) {
+      setWinner(props.team1);
+    } else if (props.stateToUpdate[props.team2.code]) {
+      setWinner(props.team2);
+    } else {
+      setWinner(undefined);
+    }
+  }, [props.team1, props.team2]);
+
+  return (
+    <Card
+      className={`min-h-24 min-w-[400px] flex justify-center items-center gap-4 bg-neutral-600 border-neutral-950 border-2 select-none ${
+        winner === props.team1
+          ? "border-l-2 border-l-green-500"
+          : winner === props.team2
+          ? "border-r-2 border-r-green-500"
+          : ""
+      }`}
+    >
+      <span
+        className={`flex gap-2 items-center justify-start h-full p-4 w-1/2 cursor-pointer rounded`}
+        onClick={() => handleClick(props.team1)}
+      >
+        <span className={`fi fi-${props.team1.code} text-2xl`}></span>
+        <span
+          className={`${
+            winner === props.team1
+              ? "font-bold border-b-2 border-b-green-500"
+              : ""
+          }`}
+        >
+          {t(props.team1.name)}
+        </span>
+      </span>
+      <span className="flex justify-center items-center border border-green-500 bg-neutral-600 text-white rounded-full w-8 h-8 p-2">
+        <span>VS</span>
+      </span>
+      <span
+        className={`flex gap-2 items-center justify-end h-full p-4 w-1/2 cursor-pointer rounded`}
+        onClick={() => handleClick(props.team2)}
+      >
+        <span
+          className={`${
+            winner === props.team2
+              ? "font-bold border-b-2 border-b-green-500"
+              : ""
+          }`}
+        >
+          {t(props.team2.name)}
+        </span>
+        <span className={`fi fi-${props.team2.code} text-2xl`}></span>
+      </span>
+    </Card>
+  );
+};
