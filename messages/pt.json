@@ -53,7 +53,15 @@
     "group": "Grupo",
     "thirdsToAdvance": "dos terceiros",
     "thirdsDialogTitle": "Terceiros que avançam",
-    "button": "Guardar"
+    "button": "Guardar",
+    "tabs": {
+      "groups": "Fase de grupos",
+      "playoffs": "Fase de Playoffs",
+      "16": "16 avos",
+      "8": "Oitavos",
+      "4": "Quartos",
+      "2": "Final"
+    }
   },
   "countries": {
     "germany": "Alemanha",
@@ -169,11 +177,16 @@
       "updateError": {
         "title": "Uh oh! Algo correu mal.",
         "description": "Houve um problema com os teus pickems. Tenta novamente mais tarde!"
+      },
+      "updatePlayoffsError": {
+        "title": "Uh oh! Algo correu mal.",
+        "description": "Esta funcionalidade ainda não está disponível!"
       }
     }
   },
   "errors": {
     "featureNotAvailable": "Funcionalidade indisponível",
+    "featureNotFinished": "Funcionalidade não finalizada!",
     "comeBackLater": "Volte mais tarde!",
     "notStarted": "A competição ainda não começou. A funcionalidade estará disponível assim que possível!"
   }

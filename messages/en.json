@@ -53,7 +53,15 @@
     "group": "Group",
     "thirdsToAdvance": "of third places",
     "thirdsDialogTitle": "Thirds to go through",
-    "button": "Save"
+    "button": "Save",
+    "tabs": {
+      "groups": "Group Stage",
+      "playoffs": "Playoffs Stage",
+      "16": "Round of 16",
+      "8": "Round of 8",
+      "4": "Semis",
+      "2": "Final"
+    }
   },
   "countries": {
     "germany": "Germany",
@@ -169,11 +177,16 @@
       "updateError": {
         "title": "Uh oh! Something went wrong.",
         "description": "There was a problem with your pickems. Try again later!"
+      },
+      "updatePlayoffsError": {
+        "title": "Uh oh! Something went wrong.",
+        "description": "This feature is not available yet!"
       }
     }
   },
   "errors": {
     "featureNotAvailable": "Feature not available",
+    "featureNotFinished": "Feature not finished yet!",
     "comeBackLater": "Come back later!",
     "notStarted": "The competition hasn't started yet. Feature will be available as soon as possible!"
   }

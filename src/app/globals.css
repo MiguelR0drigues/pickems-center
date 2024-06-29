@@ -119,3 +119,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #89db68;
 }
+
+.bg-split {
+  background: linear-gradient(to right, #3b82f6 50%, #ef4444 50%);
+}

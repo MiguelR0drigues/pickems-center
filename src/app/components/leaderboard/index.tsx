@@ -132,7 +132,9 @@ const LeaderboardTable = (): JSX.Element => {
               }`}
             >
               <td className={`text-center ${podiumColor(i + 1)} leading-loose`}>
-                {podiumEmoji(i + 1)}
+                {podiumEmoji(
+                  tablePage > 1 ? tablePage * 10 - 10 + i + 1 : i + 1
+                )}
               </td>
               <td className="text-white">{place.username}</td>
               <td className={`text-right font-bold text-${podiumColor(i + 1)}`}>
