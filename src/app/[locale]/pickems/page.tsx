@@ -12,6 +12,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/app/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/components/ui/tabs";
 import { useToast } from "@/app/components/ui/use-toast";
 import { useUser } from "@/app/contexts/UserContext";
 import { GroupData, GroupItem } from "@/app/types";
@@ -38,6 +44,7 @@ const Pickems = (): JSX.Element => {
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
   const [thirdPlaces, setThirdPlaces] = useState<GroupData>({});
+  const [tabValue, setTabValue] = useState<string>("groups");
 
   const token = jwt.sign({}, jwtToken!, {
     algorithm: "HS256",
@@ -171,77 +178,104 @@ const Pickems = (): JSX.Element => {
         </div>
         <PointsInfoPopover />
       </div>
-      <Caption />
-      {showSkeleton ? (
-        <PickemsSkeleton />
-      ) : currentGroups && Object.values(currentGroups).length > 0 ? (
-        <>
-          <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
-            <div className="flex flex-wrap flex-row gap-8 justify-center items-center w-full overflow-hidden">
-              {Object.entries(currentGroups).map((group, index) => (
-                <Group
-                  key={index}
-                  id={`pickems-group-${index}`}
-                  groupName={group[0]}
-                  groupsData={group[1]}
-                  updateCurrentGroups={updateCurrentGroups}
-                />
-              ))}
-            </div>
-          </DndProvider>
-          <Button
-            className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950 cursor-not-allowed select-none"
-            variant="secondary"
-            onClick={handleSubmit}
-            disabled
+      <Tabs
+        value={tabValue}
+        onValueChange={setTabValue}
+        className="w-full flex flex-col items-center justify-center"
+      >
+        <TabsList className="grid w-full sm:w-1/2 grid-cols-2">
+          <TabsTrigger
+            value="groups"
+            className="data-[state=active]:bg-green-500 data-[state=active]:text-black text-white"
           >
-            {loading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              t("PickemsScreen.button")
-            )}
-          </Button>
-          <Dialog
-            open={showAuthDialog}
-            onOpenChange={() => setShowAuthDialog(!showAuthDialog)}
+            {t("PickemsScreen.tabs.groups")}
+          </TabsTrigger>
+          <TabsTrigger
+            value="playoffs"
+            className="data-[state=active]:bg-green-500 data-[state=active]:text-black text-white"
           >
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader></DialogHeader>
-              <AuthContent />
-            </DialogContent>
-          </Dialog>
-          <Dialog
-            open={showThirdsDialog}
-            onOpenChange={() => setShowThirdsDialog(false)}
-          >
-            <DialogContent className="sm:max-w-[425px] sm:max-h-[550px] flex flex-col items-center">
-              <DialogHeader>
-                <DialogTitle>
-                  {t("PickemsScreen.thirdsDialogTitle")}
-                </DialogTitle>
-              </DialogHeader>
+            {t("PickemsScreen.tabs.playoffs")}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent
+          value="groups"
+          className="w-full flex flex-col items-center justify-center"
+        >
+          <Caption styles="mt-8 mb-8" />
+
+          {showSkeleton ? (
+            <PickemsSkeleton />
+          ) : currentGroups && Object.values(currentGroups).length > 0 ? (
+            <>
               <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
-                <Group
-                  id={`pickems-group-thirds`}
-                  groupName={"thirdsToAdvance"}
-                  groupsData={thirdPlaces.thirdsToAdvance}
-                  updateCurrentGroups={updateThirdsGroups}
-                  isThirds
-                />
+                <div className="flex flex-wrap flex-row gap-8 justify-center items-center w-full overflow-hidden">
+                  {Object.entries(currentGroups).map((group, index) => (
+                    <Group
+                      key={index}
+                      id={`pickems-group-${index}`}
+                      groupName={group[0]}
+                      groupsData={group[1]}
+                      updateCurrentGroups={updateCurrentGroups}
+                    />
+                  ))}
+                </div>
               </DndProvider>
               <Button
-                className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950 cursor-not-allowed select-none mt-8"
                 variant="secondary"
-                onClick={handleComplete}
+                onClick={handleSubmit}
+                disabled
               >
-                {t("PickemsScreen.button")}
+                {loading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  t("PickemsScreen.button")
+                )}
               </Button>
-            </DialogContent>
-          </Dialog>
-        </>
-      ) : (
-        <EmptyState />
-      )}
+              <Dialog
+                open={showAuthDialog}
+                onOpenChange={() => setShowAuthDialog(!showAuthDialog)}
+              >
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader></DialogHeader>
+                  <AuthContent />
+                </DialogContent>
+              </Dialog>
+              <Dialog
+                open={showThirdsDialog}
+                onOpenChange={() => setShowThirdsDialog(false)}
+              >
+                <DialogContent className="sm:max-w-[425px] sm:max-h-[550px] flex flex-col items-center">
+                  <DialogHeader>
+                    <DialogTitle>
+                      {t("PickemsScreen.thirdsDialogTitle")}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
+                    <Group
+                      id={`pickems-group-thirds`}
+                      groupName={"thirdsToAdvance"}
+                      groupsData={thirdPlaces.thirdsToAdvance}
+                      updateCurrentGroups={updateThirdsGroups}
+                      isThirds
+                    />
+                  </DndProvider>
+                  <Button
+                    className="bg-green-500 min-w-[270px] h-16 hover:bg-green-950"
+                    variant="secondary"
+                    onClick={handleComplete}
+                  >
+                    {t("PickemsScreen.button")}
+                  </Button>
+                </DialogContent>
+              </Dialog>
+            </>
+          ) : (
+            <EmptyState />
+          )}
+        </TabsContent>
+        <TabsContent value="playoffs"></TabsContent>
+      </Tabs>
     </div>
   );
 };

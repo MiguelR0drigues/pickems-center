@@ -53,7 +53,11 @@
     "group": "Group",
     "thirdsToAdvance": "of third places",
     "thirdsDialogTitle": "Thirds to go through",
-    "button": "Save"
+    "button": "Save",
+    "tabs": {
+      "groups": "Group Stage",
+      "playoffs": "Playoffs Stage"
+    }
   },
   "countries": {
     "germany": "Germany",

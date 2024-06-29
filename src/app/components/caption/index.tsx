@@ -2,7 +2,7 @@ import { ChevronUp, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
-const Caption = () => {
+const Caption = ({ styles }: { styles: string }) => {
   const t = useTranslations("components.caption");
 
   const colors: { [key: number]: string } = {
@@ -21,8 +21,10 @@ const Caption = () => {
     2: <Plus className="rotate-45" />,
   };
   return (
-    <div>
-      <ul className="flex gap-6 w-full">
+    <div
+      className={styles + " w-full sm:w-9/12 flex items-center justify-center"}
+    >
+      <ul className="flex items-start sm:items-center justify-center gap-6 w-full">
         <li className="flex flex-col sm:flex-row gap-2 items-center text-center w-1/3 sm:w-full">
           <span className={`${colors[0]} rounded max-h-6 max-w-6`}>
             {iconToRender[0]}
