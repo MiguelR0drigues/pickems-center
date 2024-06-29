@@ -25,7 +25,7 @@ const languages = [
   {
     value: "en",
     label: "English",
-    code: "gb-eng",
+    code: "gb",
   },
 ];
 
@@ -56,8 +56,8 @@ export default function Combobox() {
               selectedLanguage
                 ? languages.find(
                     (language) => language.value === selectedLanguage
-                  )?.code || "gb-eng"
-                : "gb-eng"
+                  )?.code || "gb"
+                : "gb"
             }`}
           ></span>
         </Button>
